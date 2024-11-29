@@ -1,8 +1,10 @@
 import Header from "./components/Header";
 import Tarefa from "./components/Tarefa";
 import Timer from "./components/Timer";
+import useTimerState from "./hooks/useTimerState";
 
 function App() {
+
   return (
     <div className="flex justify-center h-full w-full">
       <div className="mx-2.5 max-w-[960px] flex flex-col items-center flex-grow">
@@ -23,7 +25,7 @@ function App() {
             <Tarefa />
 
             <button className="mt-3 bg-textoNormal rounded-sm py-2.5">
-              <span className="font-workSans font-medium text-lg text-produtividade">Adicionar Tarefa</span>
+              <span className="font-workSans font-medium text-lg text-main">Adicionar Tarefa</span>
             </button>
           </div>
           </div>

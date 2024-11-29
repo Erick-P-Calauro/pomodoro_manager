@@ -9,3 +9,18 @@ body,
     width: 100%;
     height: 100%;
 }
+
+@layer base {
+    :root {
+        --produtividade: #EB6B6B;
+        --produtividade2: #D75757;
+        --descansoCurto: #7BCAAD;
+        --descansoCurto2: #67B699;
+        --descansoLongo: #98AFE1;
+        --descansoLongo2: #849BCD;
+        --normal: #FAF6F6;
+        --config: #5E5252;
+        --main: var(--produtividade);
+        --main2: var(--produtividade2);
+    }
+}

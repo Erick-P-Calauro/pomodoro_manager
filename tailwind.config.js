@@ -16,14 +16,16 @@ module.exports = {
     },
 
     colors: {
-      produtividade: "#EB6B6B",
-      produtividade2: "#D75757",
-      descansoCurto: "#7BCAAD",
-      descansoCurto2: "#67B699",
-      descansoLongo: "#98AFE1",
-      descansoLongo2: "#849BCD",
-      textoNormal: "#FAF6F6",
-      textoConfig: "#5E5252",
+      produtividade: "var(--produtividade)",
+      produtividade2: "var(--produtividade2)",
+      descansoCurto: "var(--descansoCurto)",
+      descansoCurto2: "var(--descansoCurto2)",
+      descansoLongo: "var(--descansoLongo)",
+      descansoLongo2: "var(--descansoLongo2)",
+      textoNormal: "var(--normal)",
+      textoConfig: "var(--config)",
+      main: "var(--main)",
+      main2: "var(--main2)"
     },
 
     screens: {
