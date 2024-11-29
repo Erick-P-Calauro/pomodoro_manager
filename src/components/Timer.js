@@ -1,23 +1,23 @@
 function Timer() {
     return (
         <div className="bg-produtividade py-6 rounded-md">
-            <div className="grid grid-cols-8 gap-x-5">
-                <button className="col-start-2 col-end-4 bg-produtividade2 rounded-sm">
-                    <span className="text-textoNormal text-base font-medium font-workSans">Produtividade</span>
+            <div className="mx-5 flex items-center justify-between">
+                <button className="bg-produtividade2 rounded-sm px-2 py-3 flex">
+                    <span className="text-textoNormal text-sm  font-medium font-workSans">Produtividade</span>
                 </button>
-                <button className="col-start-4 col-end-6 rounded-sm ">
-                    <span className="text-textoNormal text-base font-medium font-workSans">Descanso<br /> Curto</span>
+                <button className="rounded-sm px-2 py-3 flex">
+                    <span className="text-textoNormal text-sm  font-medium font-workSans">Descanso<br /> Curto</span>
                 </button>
-                <button className="col-start-6 col-end-8 rounded-sm">
-                    <span className="text-textoNormal text-base font-medium font-workSans">Descanso <br /> Longo</span>
+                <button className="rounded-sm px-2 py-3 flex">
+                    <span className="text-textoNormal text-sm font-medium font-workSans">Descanso <br /> Longo</span>
                 </button>
             </div>
 
-            <div className="w-full flex flex-col items-center">
-                <h2 className="text-[176px] text-textoNormal font-bold font-workSans">20:00</h2>
+            <div className="w-full flex flex-col items-center space-y-2">
+                <span className="text-sm-timer text-textoNormal font-extrabold font-workSans">20:00</span>
 
-                <button className="bg-textoNormal text-produtividade py-3 px-11 rounded-sm">
-                    <span className="font-medium text-3xl font-workSans">Iniciar</span>
+                <button className="bg-textoNormal text-produtividade py-1.5 px-11 rounded-sm flex items-center justify-center">
+                    <span className="font-medium text-lg font-workSans">Iniciar</span>
                 </button>
             </div>
         </div>

@@ -3,7 +3,7 @@ function Tarefa() {
         <div className="bg-textoNormal py-3 flex items-center justify-between rounded-sm">
             <div className="flex items-center">
                 <button className="ml-2 mr-3">
-                    <img className="w-[19px] h-[19px]" src="/check_circle.png"></img>
+                    <img className="w-[19px] h-[19px]" src="/check_circle.svg"></img>
                 </button>
 
                 <span className="font-workSans font-medium text-lg text-textoConfig">Ler(Água Funda)</span>
