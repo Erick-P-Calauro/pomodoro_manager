@@ -1,8 +1,6 @@
 /** @type {import('tailwindcss').Config} */
-const {nextui} = require("@nextui-org/react");
-
 module.exports = {
-  content: ["./src/**/*.{html,js,ts}","./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}"],
+  content: ["./src/**/*.{html,js,ts}"],
   theme: {
     extend: {
       fontFamily: {
@@ -10,9 +8,12 @@ module.exports = {
       },
 
       fontSize: {
-        'sm-timer': "7.5rem",
-        'md-timer': "8rem",
-        "desktop-timer": "10rem"
+        'sm-timer': "6.5rem",
+        'md-timer': "11rem",
+        'lg-timer': "13rem",
+        'desktop-timer': "11.25rem",
+        'md-iniciar': "",
+        'desktop-iniciar': "",
       }
     },
 
@@ -29,7 +30,8 @@ module.exports = {
 
     screens: {
       'sm-mobile': '320px',
-      'md-mobile': '500px',
+      'md-mobile': '520px',
+      'lg-mobile': '768px',
       'desktop': '960px',
     },
   },
