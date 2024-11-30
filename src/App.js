@@ -1,7 +1,7 @@
 import Header from "./components/Header";
 import Tarefa from "./components/Tarefa";
 import Timer from "./components/Timer";
-import useTimerState from "./hooks/useTimer";
+import useTimerState from "./hooks/useTimerState";
 
 function App() {
 
