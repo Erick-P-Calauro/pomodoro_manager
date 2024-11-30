@@ -1,4 +1,4 @@
-import changeTheme from "../hooks/useTimerState";
+import changeTheme from "../utils/changeTheme";
 
 function Timer() {
 
