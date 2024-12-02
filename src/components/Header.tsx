@@ -1,4 +1,7 @@
+import React from "react";
+
 function Header() {
+
     return (
         <div className="flex items-center justify-between py-6">
             <div className="flex items-center gap-5">

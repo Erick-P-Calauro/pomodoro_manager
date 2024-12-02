@@ -1,3 +1,5 @@
+import React from "react";
+
 function Tarefa() {
     return (
         <div className="bg-textoNormal py-3 flex items-center justify-between rounded-sm">
