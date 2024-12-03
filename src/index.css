@@ -10,8 +10,17 @@ body,
     height: 100%;
 }
 
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 @layer base {
     :root {
+
+        /* Cores */
+
         --produtividade: #EB6B6B;
         --produtividade2: #D75757;
         --descansoCurto: #7BCAAD;
@@ -20,7 +29,13 @@ body,
         --descansoLongo2: #849BCD;
         --normal: #FAF6F6;
         --config: #5E5252;
+        --detalhes: #C9C0C0;
         --main: var(--produtividade);
         --main2: var(--produtividade2);
     }
+
+}
+
+.formTarefaShadow {
+    filter: drop-shadow(0px,4px, rgba(255,255,255,0.2));
 }

@@ -12,7 +12,7 @@ module.exports = {
         'md-timer': "9.5rem",
         'lg-timer': "11.5rem",
         'desktop-timer': "11.25rem",
-      }
+      },
     },
 
     colors: {
@@ -24,6 +24,7 @@ module.exports = {
       descansoLongo2: "var(--descansoLongo2)",
       textoNormal: "var(--normal)",
       textoConfig: "var(--config)",
+      detalhes: "var(--detalhes)",
       main: "var(--main)",
       main2: "var(--main2)"
     },

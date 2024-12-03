@@ -5,7 +5,8 @@ function Timer({timerState, changeTimerState, mainColor, secondaryColor} : Timer
 
     return (
         <div className="py-6 rounded-md" style={{backgroundColor: mainColor}}>
-            <div className="sm-mobile:mx-2.5 lg-mobile:mx-5 sm-mobile:flex sm-mobile:items-center sm-mobile:justify-between md-mobile:grid md-mobile:grid-cols-6 md-mobile:gap-x-5">
+            <div className="sm-mobile:mx-2.5 lg-mobile:mx-5 sm-mobile:flex sm-mobile:items-center sm-mobile:justify-between 
+                md-mobile:grid md-mobile:grid-cols-6 md-mobile:gap-x-5">
                 
                 <button id="changeProdutividade" onClick={() => changeTimerState("produtividade")} 
                     className="rounded-sm px-2 py-3 sm-mobile:flex md-mobile:block md-mobile:col-start-1 md-mobile:col-end-3"
@@ -30,7 +31,8 @@ function Timer({timerState, changeTimerState, mainColor, secondaryColor} : Timer
             </div>
 
             <div className="w-full flex flex-col items-center space-y-2">
-                <span className="sm-mobile:text-sm-timer md-mobile:text-md-timer lg-mobile:text-lg-timer desktop:text-desktop-timer text-textoNormal font-extrabold font-workSans">20:00</span>
+                <span className="sm-mobile:text-sm-timer md-mobile:text-md-timer lg-mobile:text-lg-timer desktop:text-desktop-timer 
+                    text-textoNormal font-extrabold font-workSans">20:00</span>
 
                 <button className="bg-textoNormal rounded-sm flex items-center justify-center sm-mobile:py-1.5 sm-mobile:px-11 md-mobile:py-3 md-mobile:px-22">
                     <span className="font-medium sm-mobile:text-lg md-mobile:text-3xl font-workSans" style={{color: mainColor}}>Iniciar</span>
