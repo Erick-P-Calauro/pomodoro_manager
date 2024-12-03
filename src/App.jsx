@@ -1,13 +1,16 @@
+import React from "react";
 import FormTarefa from "./components/FormTarefa.tsx";
 import Header from "./components/Header.tsx";
-import { HeaderTarefa } from "./components/HeaderTarefa.tsx";
 import Tarefa from "./components/Tarefa.tsx";
 import Timer from "./components/Timer.tsx";
+import { HeaderTarefa } from "./components/HeaderTarefa.tsx";
 import { useTheme } from "./hooks/useTheme.ts";
+import { useFormDisplayState } from "./hooks/useFormDisplayState.ts";
 
 function App() {
 
   const [timerState, changeTimerState, mainColor, secondaryColor] = useTheme();
+  const [displayState, setDisplayState] = useFormDisplayState();
 
   console.log(mainColor);
 
@@ -35,11 +38,20 @@ function App() {
               <HeaderTarefa />
               <Tarefa />
               
-              <button className="mt-3 bg-textoNormal rounded-sm py-2.5">
-                <span className="font-workSans font-medium text-lg" style={{color: mainColor}}>Adicionar Tarefa</span>
-              </button>
+              {
+                displayState == 0 ? 
+                
+                <button onClick={() => setDisplayState(1)} className="mt-3 bg-textoNormal rounded-sm py-2.5">
+                  <span className="font-workSans font-medium text-lg" style={{color: mainColor}}>Adicionar Tarefa</span>
+                </button> 
+                : 
+                <>
+                  <FormTarefa 
+                    setDisplayState={setDisplayState}
+                  />
+                </>
+              }
 
-              <FormTarefa />
             </div>
           </div>
         </div>

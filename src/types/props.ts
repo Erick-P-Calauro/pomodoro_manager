@@ -4,3 +4,7 @@ export interface TimerProps {
     mainColor: string,
     secondaryColor: string, 
 }
+
+export interface FormTarefaProps {
+    setDisplayState: (number) => void,
+}
