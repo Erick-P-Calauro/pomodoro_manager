@@ -52,7 +52,7 @@ function FormTarefa({setDisplayState}:FormTarefaProps) {
                 </div>
 
                 {
-                    formState == 0 ?
+                    formState == 0 ? // FormState == 0 => Estado Inicial (Sem textarea de descrição e com botão de nova descrição)
                     <div className="bg-detalhes py-4 px-4 flex items-center justify-between mt-7 rounded-b-[4px]">
                     
                         <button onClick={() => setFormState(1)} className="bg-detalhes drop-shadow-lg px-3 py-1.5 rounded-sm text-center">
@@ -86,7 +86,7 @@ function FormTarefa({setDisplayState}:FormTarefaProps) {
                 }
             </div>
         </form>
-    )
+    );
 }
 
 export default FormTarefa;

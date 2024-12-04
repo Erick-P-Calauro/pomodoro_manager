@@ -12,12 +12,10 @@ function App() {
   const [timerState, changeTimerState, mainColor, secondaryColor] = useTheme();
   const [displayState, setDisplayState] = useFormDisplayState();
 
-  console.log(mainColor);
-
   return (
     <div className="w-full h-full" style={{backgroundColor: secondaryColor}}>
       <div className="flex justify-center h-full w-full">
-        <div className="mx-2.5 max-w-[960px] flex flex-col items-center flex-grow">
+        <div className="mx-2.5 max-w-[960px] flex flex-col items-center flex-grow pb-10">
           <div className="w-full space-y-6 md-mobile:grid md-mobile:grid-cols-12 md-mobile:gap-x-5">
             
             <div className="md-mobile:col-start-1 md-mobile:col-end-13 space-y-12 desktop:col-start-1 desktop:col-end-9">
