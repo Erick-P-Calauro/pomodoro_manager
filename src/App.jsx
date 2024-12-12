@@ -1,60 +1,57 @@
 import React from "react";
-import FormTarefa from "./components/FormTarefa.tsx";
-import Header from "./components/Header.tsx";
-import Tarefa from "./components/Tarefa.tsx";
-import Timer from "./components/Timer.tsx";
-import { HeaderTarefa } from "./components/HeaderTarefa.tsx";
-import { useTheme } from "./hooks/useTheme.ts";
+import FormTarefa from "./components/Tarefa/FormTarefa/FormTarefa.tsx";
+import Header from "./components/Header/Header.tsx";
+import Tarefa from "./components/Tarefa/CardTarefa.tsx";
+import Timer from "./components/Timer/Timer.tsx";
+import { HeaderTarefa } from "./components/Tarefa/HeaderTarefa.tsx";
 import { useFormDisplayState } from "./hooks/useFormDisplayState.ts";
+import { useThemeState } from "./hooks/useTheme.ts";
+import { ThemeContext } from "./hooks/ThemeContext.ts";
 
 function App() {
-
-  const [timerState, changeTimerState, mainColor, secondaryColor] = useTheme();
+  const [themeState, changeThemeState] = useThemeState()
   const [displayState, setDisplayState] = useFormDisplayState();
 
   return (
-    <div className="w-full h-full" style={{backgroundColor: secondaryColor}}>
-      <div className="flex justify-center h-full w-full">
-        <div className="mx-2.5 max-w-[960px] flex flex-col items-center flex-grow pb-10">
-          <div className="w-full space-y-6 md-mobile:grid md-mobile:grid-cols-12 md-mobile:gap-x-5">
-            
-            <div className="md-mobile:col-start-1 md-mobile:col-end-13 space-y-12 desktop:col-start-1 desktop:col-end-9">
-              <Header />
-              <Timer 
-                timerState={timerState} 
-                changeTimerState={changeTimerState} 
-                mainColor={mainColor} 
-                secondaryColor={secondaryColor}
-              />
-            </div>
-            
-            <div className="flex flex-col space-y-6 
-              md-mobile:col-start-2 md-mobile:col-end-12 
-              lg-mobile:col-start-3 lg-mobile:col-end-11 
-              desktop:col-start-9 desktop:col-end-13">   
+    <ThemeContext.Provider value={{colors: themeState, changeThemeState: changeThemeState}} >
+      <div className="w-full h-full" style={{backgroundColor: themeState.secondary}}>
+        <div className="flex justify-center h-full w-full">
+          <div className="mx-2.5 max-w-[960px] flex flex-col items-center flex-grow pb-10">
+            <div className="w-full space-y-6 md-mobile:grid md-mobile:grid-cols-12 md-mobile:gap-x-5">
               
-              <HeaderTarefa />
-              <Tarefa />
+              <div className="md-mobile:col-start-1 md-mobile:col-end-13 space-y-12 desktop:col-start-1 desktop:col-end-9">
+                <Header />
+                <Timer />
+              </div>
               
-              {
-                displayState == 0 ? 
+              <div className="flex flex-col space-y-6 
+                md-mobile:col-start-2 md-mobile:col-end-12 
+                lg-mobile:col-start-3 lg-mobile:col-end-11 
+                desktop:col-start-9 desktop:col-end-13">   
                 
-                <button onClick={() => setDisplayState(1)} className="mt-3 bg-textoNormal rounded-sm py-2.5">
-                  <span className="font-workSans font-medium text-lg" style={{color: mainColor}}>Adicionar Tarefa</span>
-                </button> 
-                : 
-                <>
-                  <FormTarefa 
-                    setDisplayState={setDisplayState}
-                  />
-                </>
-              }
+                <HeaderTarefa />
+                <Tarefa />
+                
+                {
+                  displayState == 0 ? 
+                  
+                  <button onClick={() => setDisplayState(1)} className="mt-3 bg-normal rounded-sm py-2.5">
+                    <span className="font-workSans font-medium text-lg" style={{color: themeState.main}}>Adicionar Tarefa</span>
+                  </button> 
+                  : 
+                  <>
+                    <FormTarefa 
+                      setDisplayState={setDisplayState}
+                    />
+                  </>
+                }
 
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </ThemeContext.Provider>
   );
 }
 

@@ -1,30 +1,25 @@
-import { useState } from "react";
+import { useState} from "react";
+import { Theme, ThemeState } from "../utils/types.ts";
 
-export const useTheme = () => {
-    const [timerState, setTimerState] = useState("produtividade");
-    const [mainColor, setMainColor] = useState("var(--produtividade)");
-    const [secondaryColor, setSecondaryColor] = useState("var(--produtividade2)");
+export const useThemeState = () => {
+    const [themeState, setThemeState] = useState<Theme>({key: ThemeState.PRODUTIVIDADE, main: "var(--produtividade)", secondary: "var(--produtividade2)"})
 
-    function changeTimerState(state) {
-        setTimerState(state);
-        
+    function changeThemeState(state : ThemeState) {
         switch(state) {
-            case "produtividade":
-                setMainColor("var(--produtividade)");
-                setSecondaryColor("var(--produtividade2)");
-                break;
-            case "curto":
-                setMainColor("var(--descansoCurto)");
-                setSecondaryColor("var(--descansoCurto2)");
-                break;
-            case "longo":
-                setMainColor("var(--descansoLongo)");
-                setSecondaryColor("var(--descansoLongo2)");
-                break;
+            case ThemeState.PRODUTIVIDADE:
+                setThemeState({key: ThemeState.PRODUTIVIDADE, main: "var(--produtividade)", secondary: "var(--produtividade2)"})
+                break
+            case ThemeState.CURTO:
+                setThemeState({key: ThemeState.CURTO, main: "var(--descansoCurto)", secondary: "var(--descansoCurto2)"})
+                break
+            case ThemeState.LONGO:
+                setThemeState({key: ThemeState.LONGO, main: "var(--descansoLongo)", secondary: "var(--descansoLongo2)"})
+                break
         }
     }
 
     return [
-        timerState, changeTimerState, mainColor, secondaryColor,
+        themeState, changeThemeState
     ]
 }
+

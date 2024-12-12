@@ -22,8 +22,8 @@ module.exports = {
       descansoCurto2: "var(--descansoCurto2)",
       descansoLongo: "var(--descansoLongo)",
       descansoLongo2: "var(--descansoLongo2)",
-      textoNormal: "var(--normal)",
-      textoConfig: "var(--config)",
+      normal: "var(--normal)",
+      config: "var(--config)",
       detalhes: "var(--detalhes)",
       main: "var(--main)",
       main2: "var(--main2)"
