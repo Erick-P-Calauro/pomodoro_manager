@@ -1,10 +1,12 @@
 import React from "react";
+import { HeadlineMedium } from "../Typography/HeadlineMedium.tsx";
 
 export function HeaderTarefa() {
     return (
         <div className="flex items-center justify-between">
-            <h2 className="font-workSans font-semibold text-normal text-xl">Tarefas</h2>
-            <button className="text-normal">
+            <HeadlineMedium text="Tarefas" style={{color: "var(--normal)"}}/>
+            
+            <button className="text-normal w-[25px] h-[23px]">
                 <img src="/more_vert.svg"></img>
             </button>
         </div>

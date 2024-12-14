@@ -5,6 +5,7 @@ export interface TimerStateButtonProps {
     changeThemeState: (themeState: ThemeState) => void,
 }
 
-export interface FormTarefaProps {
-    setDisplayState: (number) => void,
+export interface TypographyProps {
+    style: React.CSSProperties | undefined ,
+    text: String
 }

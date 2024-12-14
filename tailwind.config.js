@@ -8,10 +8,8 @@ module.exports = {
       },
 
       fontSize: {
-        'sm-timer': "5rem",
-        'md-timer': "9.5rem",
-        'lg-timer': "11.5rem",
-        'desktop-timer': "11.25rem",
+        'mobile-timer': "5rem",
+        'desktop-timer': "11rem",
       },
     },
 
@@ -31,8 +29,7 @@ module.exports = {
 
     screens: {
       'sm-mobile': '320px',
-      'md-mobile': '480px',
-      'lg-mobile': '768px',
+      'lg-mobile': '700px',
       'desktop': '960px',
     },
   },

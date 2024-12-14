@@ -1,5 +1,5 @@
 import { useState} from "react";
-import { Theme, ThemeState } from "../utils/types.ts";
+import { Theme, ThemeState } from "../../data/types.ts";
 
 export const useThemeState = () => {
     const [themeState, setThemeState] = useState<Theme>({key: ThemeState.PRODUTIVIDADE, main: "var(--produtividade)", secondary: "var(--produtividade2)"})

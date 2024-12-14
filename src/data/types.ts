@@ -1,10 +1,10 @@
 export interface ThemeContextType {
-    colors: Theme,
+    theme: Theme,
     changeThemeState: (themeState: ThemeState) => void,
 }
 
 export interface Theme{
-    key: string,
+    key: ThemeState
     main: string,
     secondary: string
 }
