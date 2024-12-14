@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { TimerStateButtonRow } from "./TimerStateButtonRow.tsx";
-import { ThemeContext } from "../../hooks/themeContext.ts";
 import { BodyLarge } from "../Typography/BodyLarge.tsx";
+import { ThemeContext } from "../../hooks/useThemeContext.ts";
 
 function Timer({}){
     const themeContext = useContext(ThemeContext)

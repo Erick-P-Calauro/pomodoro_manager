@@ -3,8 +3,15 @@ export interface ThemeContextType {
     changeThemeState: (themeState: ThemeState) => void,
 }
 
+export interface TarefaContextType {
+    changeDisplay: (number) => void,
+    tarefas: Tarefa[],
+    changeTarefas: React.Dispatch<React.SetStateAction<Tarefa[]>>,
+
+}
+
 export interface Theme{
-    key: ThemeState
+    key: ThemeState,
     main: string,
     secondary: string
 }

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { TimerStateButton } from "./TimerStateButton.tsx";
-import { ThemeContext } from "../../hooks/themeContext.ts";
 import { ThemeState } from "../../../data/types.ts";
+import { ThemeContext } from "../../hooks/useThemeContext.ts";
 
 export const TimerStateButtonRow = () => {
     const themeContext = useContext(ThemeContext);

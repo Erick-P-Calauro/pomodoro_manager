@@ -1,7 +1,7 @@
 import React, { useContext } from "react"
-import { ThemeContext } from "../../hooks/themeContext.ts"
 import { TimerStateButtonProps } from "../../../data/props.ts";
 import { BodySmall } from "../Typography/BodySmall.tsx";
+import { ThemeContext } from "../../hooks/useThemeContext.ts";
 
 export const TimerStateButton = ({...props}: TimerStateButtonProps) => {
     const themeContext = useContext(ThemeContext);

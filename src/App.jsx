@@ -2,12 +2,12 @@ import React from "react";
 import Header from "./ui/components/Header/Header.tsx";
 import Timer from "./ui/components/Timer/Timer.tsx";
 import { useThemeState } from "./ui/hooks/useTheme.ts";
-import { ThemeContext } from "./ui/hooks/themeContext.ts";
 import { ColunaTarefa } from "./ui/components/Tarefa/ColunaTarefa.tsx";
+import { ThemeContext } from "./ui/hooks/useThemeContext.ts";
 
 function App() {
   const [themeState, changeThemeState] = useThemeState()
-  
+
   return (
     <ThemeContext.Provider value={{theme: themeState, changeThemeState: changeThemeState}} >
       <div className="w-full h-full flex justify-center" style={{backgroundColor: themeState.secondary}}>

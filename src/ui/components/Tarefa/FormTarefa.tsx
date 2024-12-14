@@ -1,11 +1,12 @@
-import React from "react"
-import { useFormDisplayState } from "../../hooks/useFormDisplayState.ts";
+import React, { useContext } from "react"
+import { useFormDisplayState } from "../../hooks/FormTarefa/useFormDisplayState.ts";
 import { BodyExtraSmall } from "../Typography/BodyExtraSmall.tsx";
 import { BodyMedium } from "../Typography/BodyMedium.tsx";
-import { Tarefa } from "../../../data/types.ts";
-import { useFormCounterState } from "../../hooks/useFormCounterState.ts";
+import { useFormCounterState } from "../../hooks/FormTarefa/useFormCounterState.ts";
+import { HandleTarefaForm } from "../../hooks/FormTarefa/handleTarefaForm.ts";
+import { TarefaContext } from "../../hooks/useTarefaContext.ts";
 
-function FormTarefa({...props}) {
+function FormTarefa() {
 
     const formStateObject = useFormDisplayState();
     const formState = formStateObject.state;
@@ -15,34 +16,18 @@ function FormTarefa({...props}) {
     const counterState = counterStateObject.state;
     const changeCounterState = counterStateObject.change;
 
-    function HandleTarefaForm(event: React.SyntheticEvent) {
-        event.preventDefault()
-
-        let description
-        const [title, productivity, project] = event.currentTarget.getElementsByTagName("input")
-        
-        if(formState == 1) {
-            description = event.currentTarget.getElementsByTagName("textarea")[0].value
-        }else {
-            description = ""
-        } 
-    
-        const newTarefa: Tarefa = {
-            title: title.value == undefined ? "" : title.value,
-            description: description,
-            productivityDone: 0, // TODO = Puxar do backend
-            productivityGoal: productivity.value == undefined ? 0 : Number.parseInt(productivity.value)
-        };
-
-        let newTarefas = props.tarefas;
-        newTarefas.push(newTarefa)
-        props.setTarefas(newTarefas)
-
-        props.setDisplayState(0)
-    }
+    const tarefaContext = useContext(TarefaContext)
 
     return (
-        <form onSubmit={HandleTarefaForm}>
+        <form onSubmit={(e) =>HandleTarefaForm(
+            {
+                event: e, 
+                formState: formState, 
+                tarefas: tarefaContext.tarefas, 
+                setTarefas: tarefaContext.changeTarefas, 
+                setDisplayState: tarefaContext.changeDisplay
+            })}>
+
             <div className="bg-normal w-full h-fit rounded-[4px] pt-6">
                 <div className="px-4 space-y-5">
                     <input name="tarefa-title" className="
@@ -53,7 +38,7 @@ function FormTarefa({...props}) {
                         placeholder="Título da Tarefa"/>
 
                     <div className="space-y-3">
-                        <BodyMedium text="Seções de Produtivnameade" style={{color: "var(--config)"}}/>
+                        <BodyMedium text="Seções de Produtividade" style={{color: "var(--config)"}}/>
 
                         <div className="flex items-center gap-4">
                             <div className="flex items-center space-x-1.5">
@@ -102,7 +87,7 @@ function FormTarefa({...props}) {
                     }
 
                     <div className="flex items-center gap-3 lg-mobile:gap-4">
-                        <button onClick={() => props.setDisplayState(0)} className="py-1">
+                        <button onClick={() => tarefaContext.changeDisplay(0)} className="py-1">
                             <BodyExtraSmall text="Cancelar" style={{color: "var(--normal)"}} />
                         </button>
 
