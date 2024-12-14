@@ -14,3 +14,11 @@ export enum ThemeState {
     CURTO = "Descanso Curto",
     LONGO = "Descanso Longo"
 }
+
+export interface Tarefa {
+    title: String,
+    description: String,
+    //project: Project,
+    productivityGoal: number
+    productivityDone: number,
+}

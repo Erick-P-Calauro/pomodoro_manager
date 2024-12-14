@@ -1,7 +1,9 @@
-import React from "react";
+import React from "react"
 import { useFormDisplayState } from "../../hooks/useFormDisplayState.ts";
 import { BodyExtraSmall } from "../Typography/BodyExtraSmall.tsx";
 import { BodyMedium } from "../Typography/BodyMedium.tsx";
+import { Tarefa } from "../../../data/types.ts";
+import { useFormCounterState } from "../../hooks/useFormCounterState.ts";
 
 function FormTarefa({...props}) {
 
@@ -9,11 +11,41 @@ function FormTarefa({...props}) {
     const formState = formStateObject.state;
     const changeFormState = formStateObject.change;
 
+    const counterStateObject = useFormCounterState();
+    const counterState = counterStateObject.state;
+    const changeCounterState = counterStateObject.change;
+
+    function HandleTarefaForm(event: React.SyntheticEvent) {
+        event.preventDefault()
+
+        let description
+        const [title, productivity, project] = event.currentTarget.getElementsByTagName("input")
+        
+        if(formState == 1) {
+            description = event.currentTarget.getElementsByTagName("textarea")[0].value
+        }else {
+            description = ""
+        } 
+    
+        const newTarefa: Tarefa = {
+            title: title.value == undefined ? "" : title.value,
+            description: description,
+            productivityDone: 0, // TODO = Puxar do backend
+            productivityGoal: productivity.value == undefined ? 0 : Number.parseInt(productivity.value)
+        };
+
+        let newTarefas = props.tarefas;
+        newTarefas.push(newTarefa)
+        props.setTarefas(newTarefas)
+
+        props.setDisplayState(0)
+    }
+
     return (
-        <form action="#">
+        <form onSubmit={HandleTarefaForm}>
             <div className="bg-normal w-full h-fit rounded-[4px] pt-6">
                 <div className="px-4 space-y-5">
-                    <input className="
+                    <input name="tarefa-title" className="
                         w-full pb-1 bg-normal font-workSans text-config font-medium border-b-2 border-detalhes text-lg lg-mobile:text-xl  
                         focus:outline-none focus:text-xl focus:pb-2
                         placeholder:text-detalhes" 
@@ -21,25 +53,27 @@ function FormTarefa({...props}) {
                         placeholder="Título da Tarefa"/>
 
                     <div className="space-y-3">
-                        <BodyMedium text="Seções de Produtividade" style={{color: "var(--config)"}}/>
+                        <BodyMedium text="Seções de Produtivnameade" style={{color: "var(--config)"}}/>
 
                         <div className="flex items-center gap-4">
                             <div className="flex items-center space-x-1.5">
-                                <input className="focus:outline-none w-9 
+                                <input name="tarefa-productivity" className="focus:outline-none w-9 
                                 placeholder:text-detalhes 
                                 text-center text-config 
-                                font-workSans drop-shadow-lg" type="number" min="1" placeholder="1" />
+                                font-workSans drop-shadow-lg" 
+                                type="number" min="1" placeholder="1" max="100" 
+                                value={counterState} onChange={(e) => changeCounterState(e.target.value)}/>
                                 
-                                <button className="bg-normal drop-shadow-lg">
+                                <button type="button" onClick={() => changeCounterState(counterState + 1)} className="bg-normal drop-shadow-lg">
                                     <img src="/arrow_drop_up.svg" />
                                 </button>
 
-                                <button className="bg-normal drop-shadow-lg">
+                                <button type="button" onClick={() => changeCounterState(counterState - 1)} className="bg-normal drop-shadow-lg">
                                     <img src="/arrow_drop_down.svg" />
                                 </button>
                             </div>
                             
-                            <select className="flex flex-grow text-center text-[10px] lg-mobile:text-xs text-config py-1 font-workSans drop-shadow-lg">
+                            <select name="tarefa-project" className="flex flex-grow text-center text-[10px] lg-mobile:text-xs text-config py-1 font-workSans drop-shadow-lg">
                                 <option>Sem Projeto</option>
                             </select>
                         </div>
@@ -48,7 +82,7 @@ function FormTarefa({...props}) {
                     {
                         formState == 1 ?
                         <textarea 
-                        id="input-textarea" 
+                        name="tarefa-description" 
                         placeholder="Descrição da tarefa..." 
                         className="text-config text-[10px] lg-mobile:text-xs drop-shadow-lg w-full rounded-sm px-3 py-3
                             focus:outline-none"/>
@@ -72,7 +106,7 @@ function FormTarefa({...props}) {
                             <BodyExtraSmall text="Cancelar" style={{color: "var(--normal)"}} />
                         </button>
 
-                        <button className="bg-config py-1 px-2.5 rounded-sm flex items-center justify-center">
+                        <button type="submit" className="bg-config py-1 px-2.5 rounded-sm flex items-center justify-center">
                             <BodyExtraSmall text="Salvar" style={{color: "var(--normal)"}} />
                         </button>
                     </div>
