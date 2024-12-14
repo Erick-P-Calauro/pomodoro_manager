@@ -19,7 +19,7 @@ export const ColunaTarefa = () => {
             {
                 displayState == 0 ? 
                 
-                <div className="lg-mobile:mx-auto">
+                <div className="lg-mobile:mx-auto desktop:mx-0">
                     <ButtonTarefa setDisplayState={setDisplayState} />
                 </div>
                 : 

@@ -32,6 +32,11 @@ input[type="number"]::-webkit-outer-spin-button {
         --detalhes: #C9C0C0;
         --main: var(--produtividade);
         --main2: var(--produtividade2);
+
+        /* Sombra */
+        --tinyBoxShadow: rgba(0, 0, 0, 0.25) 0px 16px 16px;
+        --mdBoxShadow: rgba(0, 0, 0, 0.25) 0px 4px 2px 0.5px;
+        --lgBoxShadow: rgba(0,0,0,0.25) 0px 4px 4px 2px;
     }
 
 }

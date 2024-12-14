@@ -11,6 +11,12 @@ module.exports = {
         'mobile-timer': "5rem",
         'desktop-timer': "11rem",
       },
+
+      boxShadow: {
+        'tinyBoxShadow': "var(--tinyBoxShadow)",
+        'mdBoxhadow': "var(--mdBoxShadow)",
+        'lgBoxShadow': "var(--lgBoxShadow)"
+      }
     },
 
     colors: {
