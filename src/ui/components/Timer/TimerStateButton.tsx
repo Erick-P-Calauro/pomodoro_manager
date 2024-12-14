@@ -8,9 +8,8 @@ export const TimerStateButton = ({...props}: TimerStateButtonProps) => {
 
     return (
         <button id={"change"+props.text} onClick={() => themeContext.changeThemeState(props.text)} 
-            className="rounded-sm px-3 py-1.5 flex "
-                style={{backgroundColor: themeContext.theme.key === props.text ? themeContext.theme.secondary : themeContext.theme.main}}
-            >
+            className="rounded-sm px-3 py-1.5 flex lg-mobile:px-4 lg-mobile:py-3" 
+            style={{backgroundColor: themeContext.theme.key === props.text ? themeContext.theme.secondary : themeContext.theme.main}}>
 
 
             <BodySmall text={props.text} style={{color: "var(--normal)"}}/>

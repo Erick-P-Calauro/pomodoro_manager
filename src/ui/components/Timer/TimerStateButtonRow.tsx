@@ -7,7 +7,7 @@ export const TimerStateButtonRow = () => {
     const themeContext = useContext(ThemeContext);
 
     return (
-        <div className="mx-4 flex items-center justify-between">
+        <div className="w-full flex items-center justify-between">
             
             <TimerStateButton text={ThemeState.PRODUTIVIDADE} changeThemeState={() => themeContext.changeThemeState(ThemeState.PRODUTIVIDADE)}  />
             

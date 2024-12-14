@@ -7,5 +7,5 @@ export const useFormState = () => {
         setFormState(state);
     }
 
-    return [formState, changeFormState];
+    return {state: formState, change: changeFormState}
 }

@@ -1,45 +1,31 @@
 import React from "react";
-import FormTarefa from "./ui/components/Tarefa/FormTarefa/FormTarefa.tsx";
 import Header from "./ui/components/Header/Header.tsx";
-import Tarefa from "./ui/components/Tarefa/CardTarefa.tsx";
 import Timer from "./ui/components/Timer/Timer.tsx";
-import { HeaderTarefa } from "./ui/components/Tarefa/HeaderTarefa.tsx";
-import { useFormDisplayState } from "./ui/hooks/useFormDisplayState.ts";
 import { useThemeState } from "./ui/hooks/useTheme.ts";
 import { ThemeContext } from "./ui/hooks/themeContext.ts";
-import { ButtonTarefa } from "./ui/components/Tarefa/ButtonTarefa.tsx";
+import { ColunaTarefa } from "./ui/components/Tarefa/ColunaTarefa.tsx";
 
 function App() {
   const [themeState, changeThemeState] = useThemeState()
-  const [displayState, setDisplayState] = useFormDisplayState();
-
+  
   return (
     <ThemeContext.Provider value={{theme: themeState, changeThemeState: changeThemeState}} >
       <div className="w-full h-full flex justify-center" style={{backgroundColor: themeState.secondary}}>
-        <div className="sm-mobile:max-w-[375px] mx-2.5 pb-10 flex flex-col items-center flex-grow">
-          <div className="w-full space-y-12">
+        <div className="
+            sm-mobile:max-w-[375px] 
+            lg-mobile:max-w-[700px] 
+            desktop:max-w-[960px] 
+            mx-2.5 pb-10 flex flex-col items-center flex-grow">
+          
+          <div className="w-full space-y-12 desktop:space-x-5 
+            desktop:grid desktop:grid-cols-3 desktop:space-y-6">
             
-            <div className="space-y-12">
+            <div className="space-y-12 desktop:col-start-1 desktop:col-end-3">
               <Header />
               <Timer />
             </div>
             
-            <div className="flex flex-col space-y-6">   
-              
-              <HeaderTarefa />
-              <Tarefa />
-              
-              {
-                displayState == 0 ? 
-                
-                <ButtonTarefa setDisplayState={setDisplayState} />
-                : 
-                <FormTarefa 
-                  setDisplayState={setDisplayState}
-                />
-              }
-
-            </div>
+            <ColunaTarefa />
           </div>
         </div>
       </div>

@@ -3,6 +3,6 @@ import { TypographyProps } from "../../../data/props";
 
 export const HeadlineMedium = ({...props}:TypographyProps) => {
     return (
-        <span className="font-workSans font-semibold text-[20px]" style={props.style} >{props.text}</span>
+        <span className="font-workSans font-semibold text-[20px] lg-mobile:text[22px]" style={props.style} >{props.text}</span>
     );
 }

@@ -3,7 +3,7 @@ import { BodyExtraSmall } from "../Typography/BodyExtraSmall.tsx";
 
 function Tarefa() {
     return (
-        <div className="bg-normal py-2.5 flex items-center justify-between rounded-md">
+        <div className="bg-normal py-2.5 flex items-center justify-between rounded-md lg-mobile:py-3">
             <div className="flex items-center">
                 <button className="mx-2">
                     <img className="w-[16px] h-[15px]" src="/check_circle.svg"></img>
