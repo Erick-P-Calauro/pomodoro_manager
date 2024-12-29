@@ -1,16 +1,16 @@
 import React from "react";
-import Header from "./ui/components/Header/Header.tsx";
-import Timer from "./ui/components/Timer/Timer.tsx";
-import { useThemeState } from "./ui/hooks/useTheme.ts";
-import { ColunaTarefa } from "./ui/components/Tarefa/ColunaTarefa.tsx";
-import { ThemeContext } from "./ui/hooks/useThemeContext.ts";
+import Header from "../components/Header/Header.tsx";
+import Timer from "../components/Timer/Timer.tsx";
+import { ColunaTarefa } from "../components/Tarefa/ColunaTarefa.tsx";
+import { useThemeState } from "../logic/hooks/useTheme.ts";
+import { ThemeContext } from "../logic/contexts/useThemeContext.tsx";
 
 function App() {
-  const [themeState, changeThemeState] = useThemeState()
+  const [ themeState, setThemeState ] = useThemeState()
 
   return (
-    <ThemeContext.Provider value={{theme: themeState, changeThemeState: changeThemeState}} >
-      <div className="w-full h-full flex justify-center" style={{backgroundColor: themeState.secondary}}>
+    <ThemeContext.Provider value={{...themeState, changeThemeState: setThemeState}} >
+      <div className="w-full h-full flex justify-center" style={{backgroundColor: themeState?.colors.secondary}}>
         <div className="
             sm-mobile:max-w-[375px] 
             lg-mobile:max-w-[715px] 

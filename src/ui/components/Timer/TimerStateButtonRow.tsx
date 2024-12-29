@@ -1,20 +1,14 @@
-import React, { useContext } from "react";
+import React from "react";
 import { TimerStateButton } from "./TimerStateButton.tsx";
-import { ThemeState } from "../../../data/types.ts";
-import { ThemeContext } from "../../hooks/useThemeContext.ts";
+import { DESCANSO_CURTO, DESCANSO_LONGO, PRODUTIVIDADE } from "../../data.ts";
 
 export const TimerStateButtonRow = () => {
-    const themeContext = useContext(ThemeContext);
 
     return (
         <div className="w-full flex items-center justify-between">
-            
-            <TimerStateButton text={ThemeState.PRODUTIVIDADE} changeThemeState={() => themeContext.changeThemeState(ThemeState.PRODUTIVIDADE)}  />
-            
-            <TimerStateButton text={ThemeState.CURTO} changeThemeState={() => themeContext.changeThemeState(ThemeState.CURTO)} />
-            
-            <TimerStateButton text={ThemeState.LONGO} changeThemeState={() => themeContext.changeThemeState(ThemeState.LONGO)} />
-            
+            <TimerStateButton text={PRODUTIVIDADE}   />
+            <TimerStateButton text={DESCANSO_CURTO} />
+            <TimerStateButton text={DESCANSO_LONGO} />
         </div>
     );
 }

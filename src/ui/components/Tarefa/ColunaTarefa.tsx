@@ -1,25 +1,28 @@
-import React from "react"
+import React, { useState } from "react"
 import { HeaderTarefa } from "./HeaderTarefa.tsx"
 import { ButtonTarefa } from "./ButtonTarefa.tsx"
 import FormTarefa from "./FormTarefa.tsx"
-import { useFormDisplayState } from "../../hooks/FormTarefa/useFormDisplayState.ts"
-import { useTarefaState } from "../../hooks/useTarefaState.ts"
 import { CardTarefa } from "./CardTarefa.tsx"
-import { TarefaContextType } from "../../../data/types.ts"
-import { TarefaContext } from "../../hooks/useTarefaContext.ts"
+import { Tarefa } from "../../../data/types.ts"
+import { TarefaContext } from "../../logic/contexts/useTarefaContext.tsx"
 
 export const ColunaTarefa = () => {
-    const display= useFormDisplayState();
-    const tarefa = useTarefaState();
-    const tarefaContext: TarefaContextType = {changeDisplay: display.change, changeTarefas: tarefa.change, tarefas: tarefa.state};
+    const [display, setDisplay] = useState(0)
+    const [tarefas, setTarefas] = useState<Tarefa[]>([])
+    
+    const initialTarefaContext = {
+        changeDisplay: setDisplay, 
+        changeTarefas: setTarefas, 
+        tarefas: tarefas
+    };
 
     return (
         <div className="flex flex-col space-y-6 lg-mobile:max-w-[50%] mx-auto desktop:max-w-[100%] desktop:mx-0">     
-           <TarefaContext.Provider value={tarefaContext}>
+           <TarefaContext.Provider value={initialTarefaContext}>
             <HeaderTarefa />
                 
                 {
-                    tarefa.state.map((tarefa) => {
+                    tarefas.map((tarefa) => {
                         return <CardTarefa 
                             title={tarefa.title} 
                             description={tarefa.description} 
@@ -29,7 +32,7 @@ export const ColunaTarefa = () => {
                 }
                 
                 {
-                    display.state == 0 ? 
+                    display === 0 ? 
                     
                     <div className="lg-mobile:mx-auto desktop:mx-0">
                         <ButtonTarefa />
@@ -37,6 +40,7 @@ export const ColunaTarefa = () => {
                     : 
                     <FormTarefa />
                 }
+                
            </TarefaContext.Provider>
         </div>
     )

@@ -20,7 +20,6 @@ input[type="number"]::-webkit-outer-spin-button {
     :root {
 
         /* Cores */
-
         --produtividade: #EB6B6B;
         --produtividade2: #D75757;
         --descansoCurto: #7BCAAD;
@@ -30,13 +29,16 @@ input[type="number"]::-webkit-outer-spin-button {
         --normal: #FAF6F6;
         --config: #5E5252;
         --detalhes: #C9C0C0;
+        
+        
+        /* Variáveis de tema */
         --main: var(--produtividade);
         --main2: var(--produtividade2);
 
         /* Sombra */
         --tinyBoxShadow: rgba(0, 0, 0, 0.25) 0px 16px 16px;
         --mdBoxShadow: rgba(0, 0, 0, 0.25) 0px 4px 2px 0.5px;
-        --lgBoxShadow: rgba(0,0,0,0.25) 0px 4px 4px 2px;
+        --lgBoxShadow: rgba(0,0,0,0.3) 0px 8px 4px 0px;
     }
 
 }

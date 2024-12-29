@@ -1,20 +1,13 @@
-import React, { useContext } from "react"
-import { useFormDisplayState } from "../../hooks/FormTarefa/useFormDisplayState.ts";
+import React, { useContext, useState } from "react"
 import { BodyExtraSmall } from "../Typography/BodyExtraSmall.tsx";
 import { BodyMedium } from "../Typography/BodyMedium.tsx";
-import { useFormCounterState } from "../../hooks/FormTarefa/useFormCounterState.ts";
-import { HandleTarefaForm } from "../../hooks/FormTarefa/handleTarefaForm.ts";
-import { TarefaContext } from "../../hooks/useTarefaContext.ts";
+import { useFormCounterState } from "../../logic/hooks/useFormCounterState.ts";
+import { HandleTarefaForm } from "../../logic/handleTarefaForm.ts";
+import { TarefaContext } from "../../logic/contexts/useTarefaContext.tsx";
 
 function FormTarefa() {
-
-    const formStateObject = useFormDisplayState();
-    const formState = formStateObject.state;
-    const changeFormState = formStateObject.change;
-
-    const counterStateObject = useFormCounterState();
-    const counterState = counterStateObject.state;
-    const changeCounterState = counterStateObject.change;
+    const [formState, setFormState] = useState(0);
+    const [ counterState , changeCounterState ] = useFormCounterState();
 
     const tarefaContext = useContext(TarefaContext)
 
@@ -47,14 +40,15 @@ function FormTarefa() {
                                 text-center text-config 
                                 font-workSans drop-shadow-lg" 
                                 type="number" min="1" placeholder="1" max="100" 
-                                value={counterState} onChange={(e) => changeCounterState(e.target.value)}/>
+                                value={counterState} 
+                                onChange={(e) => changeCounterState(e.target.value)}/>
                                 
                                 <button type="button" onClick={() => changeCounterState(counterState + 1)} className="bg-normal drop-shadow-lg">
-                                    <img src="/arrow_drop_up.svg" />
+                                    <img src="/arrow_drop_up.svg" alt="plus counter icon" />
                                 </button>
 
                                 <button type="button" onClick={() => changeCounterState(counterState - 1)} className="bg-normal drop-shadow-lg">
-                                    <img src="/arrow_drop_down.svg" />
+                                    <img src="/arrow_drop_down.svg" alt="minus counter icon" />
                                 </button>
                             </div>
                             
@@ -65,7 +59,7 @@ function FormTarefa() {
                     </div>
 
                     {
-                        formState == 1 ?
+                        formState === 1 ?
                         <textarea 
                         name="tarefa-description" 
                         placeholder="Descrição da tarefa..." 
@@ -78,8 +72,8 @@ function FormTarefa() {
                 </div> 
                 
                 <div className="bg-detalhes py-4 px-4 flex items-center justify-between mt-7 rounded-b-[4px] gap-4">
-                    { formState == 0 ? // FormState == 0 => Estado Inicial (Sem textarea de descrição e com botão de nova descrição)
-                        <button onClick={() => changeFormState(1)} className="bg-detalhes drop-shadow-lg px-3 py-1.5 rounded-sm text-center">
+                    { formState === 0 ? // FormState == 0 => Estado Inicial (Sem textarea de descrição e com botão de nova descrição)
+                        <button onClick={() => setFormState(1)} className="bg-detalhes drop-shadow-lg px-3 py-1.5 rounded-sm text-center">
                             <BodyExtraSmall text="Nova descrição" style={{color: "var(--normal)"}} />
                         </button> 
                         : 
