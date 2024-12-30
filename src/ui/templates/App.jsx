@@ -1,9 +1,9 @@
 import React from "react";
 import Header from "../components/Header/Header.tsx";
 import Timer from "../components/Timer/Timer.tsx";
-import { ColunaTarefa } from "../components/Tarefa/ColunaTarefa.tsx";
 import { useThemeState } from "../logic/hooks/useTheme.ts";
 import { ThemeContext } from "../logic/contexts/useThemeContext.tsx";
+import { Tarefas } from "../components/Tarefas/Tarefas.tsx";
 
 function App() {
   const [ themeState, setThemeState ] = useThemeState()
