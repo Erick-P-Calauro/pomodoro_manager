@@ -1,6 +1,15 @@
 import React from "react";
 
-const ThemeState = {
+export type ThemeContextType =  {
+    key: string,
+    colors: {
+        main : string,
+        secondary: string,
+    }
+    changeThemeState: (newTheme: string) => void
+}
+
+const ThemeContextState: ThemeContextType = {
     key: "PRODUTIVIDADE",
     colors: {
         main: "",
@@ -9,7 +18,7 @@ const ThemeState = {
     changeThemeState: (a) => {}
 }
 
-export const ThemeContext = React.createContext(ThemeState)
+export const ThemeContext = React.createContext(ThemeContextState)
 
 export const ThemeProvider = ({children, value}) => {
     return (

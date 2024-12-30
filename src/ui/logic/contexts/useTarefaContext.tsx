@@ -1,7 +1,7 @@
 import React from "react";
 import { Tarefa } from "../../../data/types";
 
-type TarefaStateType = {
+export type TarefaStateType = {
     changeDisplay: (number) => void,
     changeTarefas: React.Dispatch<React.SetStateAction<Tarefa[]>>,
     tarefas: Tarefa[]

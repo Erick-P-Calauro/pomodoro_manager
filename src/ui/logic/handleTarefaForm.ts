@@ -1,6 +1,6 @@
 import { Tarefa } from "../../data/types"
 
-interface handleTarefaFormParams {
+type handleTarefaFormParams = {
     event: React.SyntheticEvent;
     formState: number,
     tarefas: Tarefa[],

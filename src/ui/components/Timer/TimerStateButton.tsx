@@ -1,13 +1,12 @@
-import React, { useContext } from "react"
+import React from "react"
 import { BodySmall } from "../Typography/BodySmall.tsx";
-import { ThemeContext } from "../../logic/contexts/useThemeContext.tsx";
+import { DESCANSO_CURTO, PRODUTIVIDADE } from "../../data.ts";
+import { ThemeContextType } from "../../logic/contexts/useThemeContext.tsx";
 
-export const TimerStateButton = ({ text } : {text : string}) => {
-    const {key, colors, changeThemeState} = useContext(ThemeContext);
+export const TimerStateButton = ({ text, context } : { text : string, context: ThemeContextType}) => {
+    const {key, colors, changeThemeState } = context;
     const { main, secondary } = colors;
-
-    const displayText = text.indexOf("_") !== -1 ?  
-        "Descanso " + text.split("_")[1].charAt(0).toUpperCase() + text.split("_")[1].substring(1).toLowerCase() : "Produtividade"
+    const displayText = text === PRODUTIVIDADE ? "Produtividade" : text === DESCANSO_CURTO ? "Descanso Curto" : "Descanso Longo";
 
     return (
         <button id={"change"+text} onClick={() => changeThemeState(text)} 
