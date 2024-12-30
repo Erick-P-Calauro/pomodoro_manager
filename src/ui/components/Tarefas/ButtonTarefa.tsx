@@ -10,10 +10,12 @@ export const ButtonTarefa = () => {
     const { changeDisplay }= useContext(TarefaContext)
     
     return (
-        <button onClick={() => changeDisplay(1)} 
-            className="mt-3 bg-normal rounded-sm py-2.5 w-full shadow-lgBoxShadow lg-mobile:px-11 lg-mobile:py-2.5">
-            
-            <BodyMedium text="Adicionar Tarefa" style={{color: secondary}}/>
-        </button> 
+        <div className="lg-mobile:mx-auto desktop:mx-0">
+            <button onClick={() => changeDisplay(1)} 
+                className="mt-3 bg-normal rounded-sm py-2.5 w-full shadow-lgBoxShadow lg-mobile:px-11 lg-mobile:py-2.5">
+                
+                <BodyMedium text="Adicionar Tarefa" style={{color: secondary}}/>
+            </button>
+        </div> 
     )
 }

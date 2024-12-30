@@ -5,7 +5,7 @@ import { useFormCounterState } from "../../logic/hooks/useFormCounterState.ts";
 import { HandleTarefaForm } from "../../logic/handleTarefaForm.ts";
 import { TarefaContext } from "../../logic/contexts/useTarefaContext.tsx";
 
-function FormTarefa() {
+export const FormTarefa = () => {
     const [formState, setFormState] = useState(0);
     const [ counterState , changeCounterState ] = useFormCounterState();
 
@@ -94,5 +94,3 @@ function FormTarefa() {
         </form>
     );
 }
-
-export default FormTarefa;

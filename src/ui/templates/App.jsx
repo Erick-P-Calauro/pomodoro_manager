@@ -25,7 +25,7 @@ function App() {
               <Timer />
             </div>
             
-            <ColunaTarefa />
+            <Tarefas />
           </div>
         </div>
       </div>
