@@ -1,5 +1,5 @@
 import { useState} from "react";
-import { DESCANSO_CURTO, MAIN_THEMES, PRODUTIVIDADE } from "../../data.ts";
+import { DESCANSO_CURTO, MAIN_THEMES, PRODUTIVIDADE } from "../../types/types.ts";
 
 type ThemeStateType = {
     key: string,

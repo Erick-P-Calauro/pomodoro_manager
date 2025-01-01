@@ -1,4 +1,4 @@
-export interface Tarefa {
+export type Tarefa = {
     title: String,
     description: String,
     //project: Project,

@@ -1,6 +1,6 @@
 import React from "react"
 import { BodySmall } from "../Typography/BodySmall.tsx";
-import { DESCANSO_CURTO, PRODUTIVIDADE } from "../../data.ts";
+import { DESCANSO_CURTO, PRODUTIVIDADE } from "../../types/types.ts";
 import { ThemeContextType } from "../../logic/contexts/useThemeContext.tsx";
 
 export const TimerStateButton = ({ text, context } : { text : string, context: ThemeContextType}) => {
