@@ -1,46 +1,45 @@
-import React, { useContext, useState } from "react"
+import React, { useContext,  useState } from "react"
 import { BodyExtraSmall } from "../Typography/BodyExtraSmall.tsx";
 import { BodyMedium } from "../Typography/BodyMedium.tsx";
 import { useFormCounterState } from "../../logic/hooks/useFormCounterState.ts";
-import { HandleTarefaForm } from "../../logic/handleTarefaForm.ts";
 import { TarefaContext } from "../../logic/contexts/useTarefaContext.tsx";
+import { useForm } from "react-hook-form";
+import { handleTarefaForm } from "../../logic/handleTarefaForm.ts";
+
+export type TarefaFormData = {
+    titulo: string,
+    description: string,
+    productivityGoal: number,
+}
 
 export const FormTarefa = ({ target = {}}) => {
+    const { register, handleSubmit, setValue } = useForm<TarefaFormData>();
+    
+    const [ counterState, changeCounterState ] = useFormCounterState(setValue);
     const [ formState, setFormState ] = useState(0);
-    const [ counterState,changeCounterState ] = useFormCounterState();
 
-    const tarefaContext = useContext(TarefaContext)
+    const tarefaContext = useContext(TarefaContext);
 
     return (
-        <form onSubmit={(e) =>HandleTarefaForm(
-            {
-                event: e, 
-                formState: formState, 
-                setDisplayState: tarefaContext.changeDisplay,
-                dispatchTarefas: tarefaContext.dispatchTarefas,
-            })}>
-
+        <form onSubmit={handleSubmit(data => handleTarefaForm(data, tarefaContext.changeDisplay, tarefaContext.dispatchTarefas))}>
             <div className="bg-normal w-full h-fit rounded-[4px] pt-6">
                 <div className="px-4 space-y-5">
-                    <input name="tarefa-title" className="
+                    <input className="
                         w-full pb-1 bg-normal font-workSans text-config font-medium border-b-2 border-detalhes text-lg lg-mobile:text-xl  
                         focus:outline-none focus:text-xl focus:pb-2
                         placeholder:text-detalhes" 
-                        type="text" 
-                        placeholder="Título da Tarefa"/>
+                        placeholder="Título da Tarefa" {...register("titulo")}/>
 
                     <div className="space-y-3">
                         <BodyMedium text="Seções de Produtividade" style={{color: "var(--config)"}}/>
 
                         <div className="flex items-center gap-4">
                             <div className="flex items-center space-x-1.5">
-                                <input name="tarefa-productivity" className="focus:outline-none w-9 
-                                placeholder:text-detalhes 
-                                text-center text-config 
-                                font-workSans drop-shadow-lg" 
-                                type="number" min="1" placeholder="1" max="100" 
-                                value={counterState} 
-                                onChange={(e) => changeCounterState(e.target.value)}/>
+                                <input {...register("productivityGoal", {
+                                    onChange(event) { changeCounterState(event.target.value)},
+                                })} 
+                                    className="focus:outline-none w-9 placeholder:text-detalhes text-center text-config font-workSans drop-shadow-lg" 
+                                />
                                 
                                 <button type="button" onClick={() => changeCounterState(counterState + 1)} className="bg-normal drop-shadow-lg">
                                     <img src="/assets/arrow_drop_up.svg" alt="plus counter icon" />
@@ -59,11 +58,10 @@ export const FormTarefa = ({ target = {}}) => {
 
                     {
                         formState === 1 ?
-                        <textarea 
-                        name="tarefa-description" 
-                        placeholder="Descrição da tarefa..." 
-                        className="text-config text-[10px] lg-mobile:text-xs drop-shadow-lg w-full rounded-sm px-3 py-3
-                            focus:outline-none"/>
+                        <textarea  
+                            placeholder="Descrição da tarefa..." 
+                            className="text-config text-[10px] lg-mobile:text-xs drop-shadow-lg w-full rounded-sm px-3 py-3
+                                focus:outline-none" {...register("description")}/>
                         :
                         <></>
                     }

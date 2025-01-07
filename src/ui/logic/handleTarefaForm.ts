@@ -1,33 +1,23 @@
 import { Tarefa } from "../../data/types"
+import { TarefaFormData } from "../components/Tarefas/FormTarefa.tsx";
 import { cadastrarTarefa } from "./tarefaReducer/actions.ts";
 
-type handleTarefaFormParams = {
-    event: React.SyntheticEvent;
-    formState: number,
-    setDisplayState: React.Dispatch<React.SetStateAction<number>>,
-    dispatchTarefas : React.Dispatch<React.SetStateAction<Tarefa[]>>
-}
-
-export const HandleTarefaForm = ({event, formState, setDisplayState, dispatchTarefas}: handleTarefaFormParams) => {
-    event.preventDefault()
-
-    let description = ""
-    const [title, productivity ] = event.currentTarget.getElementsByTagName("input")
-    
-    if(formState === 1) {
-        description = event.currentTarget.getElementsByTagName("textarea")[0].value
-    }
+export const handleTarefaForm = (
+    data : TarefaFormData, 
+    setDisplayState : React.Dispatch<React.SetStateAction<Number>>, 
+    dispatchTarefas: React.Dispatch<React.SetStateAction<Tarefa[]>>
+) => {
+    console.log(data);
 
     const newTarefa: Tarefa = {
         id: -1, // O id vai ser alterado no reducer
-        title: title.value === undefined ? "" : title.value,
-        description: description,
+        title: data.titulo,
+        description: data.description,
         productivityDone: 0, // TODO = Puxar do backend
-        productivityGoal: productivity.value === undefined ? 0 : Number.parseInt(productivity.value)
+        productivityGoal: data.productivityGoal
     };
 
     // Tarefa-Action
     cadastrarTarefa(dispatchTarefas, newTarefa);
-    
     setDisplayState(0)
 }
