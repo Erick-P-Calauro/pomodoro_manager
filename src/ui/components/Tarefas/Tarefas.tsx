@@ -7,7 +7,7 @@ import { FormTarefa } from "./FormTarefa.tsx"
 import { ThemeContext } from "../../logic/contexts/useThemeContext.tsx"
 import * as constants from "../../types/timer-constants.ts";
 import { mockTarefas } from "../../../data/mocks.ts"
-import { TarefaReducer } from "../../logic/TarefaReducer/reducer.ts"
+import { TarefaReducer } from "../../logic/tarefaReducer/reducer.ts"
 
 export const Tarefas = () => {
 

@@ -5,7 +5,7 @@ import { useIsCardTarefaSelected } from "../../logic/hooks/useIsCardTarefaSelect
 import { AppearAnimated } from "../Animated/AppearAnimated.jsx";
 import { ExpandAnimated } from "../Animated/ExpandAnimated.jsx";
 import { TarefaContext } from "../../logic/contexts/useTarefaContext.tsx";
-import { apagarTarefa } from "../../logic/TarefaReducer/actions.ts";
+import { apagarTarefa } from "../../logic/tarefaReducer/actions.ts";
 
 export const CardTarefa = ({ tarefa, changeSelected, receivedIsSelected}) => {
     const {id, title, productivityDone, productivityGoal} = tarefa;

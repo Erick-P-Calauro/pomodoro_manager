@@ -1,5 +1,5 @@
 import { Tarefa } from "../../data/types"
-import { cadastrarTarefa } from "./TarefaReducer/actions.ts";
+import { cadastrarTarefa } from "./tarefaReducer/actions.ts";
 
 type handleTarefaFormParams = {
     event: React.SyntheticEvent;
