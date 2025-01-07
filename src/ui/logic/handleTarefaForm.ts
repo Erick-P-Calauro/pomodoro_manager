@@ -1,14 +1,14 @@
 import { Tarefa } from "../../data/types"
+import { cadastrarTarefa } from "./TarefaReducer/actions.ts";
 
 type handleTarefaFormParams = {
     event: React.SyntheticEvent;
     formState: number,
-    tarefas: Tarefa[],
-    setTarefas: React.Dispatch<React.SetStateAction<Tarefa[]>>,
-    setDisplayState: React.Dispatch<React.SetStateAction<number>>
+    setDisplayState: React.Dispatch<React.SetStateAction<number>>,
+    dispatchTarefas : React.Dispatch<React.SetStateAction<Tarefa[]>>
 }
 
-export const HandleTarefaForm = ({event, formState, tarefas, setTarefas, setDisplayState}: handleTarefaFormParams) => {
+export const HandleTarefaForm = ({event, formState, setDisplayState, dispatchTarefas}: handleTarefaFormParams) => {
     event.preventDefault()
 
     let description = ""
@@ -19,15 +19,15 @@ export const HandleTarefaForm = ({event, formState, tarefas, setTarefas, setDisp
     }
 
     const newTarefa: Tarefa = {
+        id: -1, // O id vai ser alterado no reducer
         title: title.value === undefined ? "" : title.value,
         description: description,
         productivityDone: 0, // TODO = Puxar do backend
         productivityGoal: productivity.value === undefined ? 0 : Number.parseInt(productivity.value)
     };
 
-    let newTarefas = tarefas;
-    newTarefas.push(newTarefa)
+    // Tarefa-Action
+    cadastrarTarefa(dispatchTarefas, newTarefa);
     
-    setTarefas(newTarefas)
     setDisplayState(0)
 }

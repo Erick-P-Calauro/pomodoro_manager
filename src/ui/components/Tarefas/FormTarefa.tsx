@@ -5,7 +5,7 @@ import { useFormCounterState } from "../../logic/hooks/useFormCounterState.ts";
 import { HandleTarefaForm } from "../../logic/handleTarefaForm.ts";
 import { TarefaContext } from "../../logic/contexts/useTarefaContext.tsx";
 
-export const FormTarefa = () => {
+export const FormTarefa = ({ target }) => {
     const [ formState, setFormState ] = useState(0);
     const [ counterState,changeCounterState ] = useFormCounterState();
 
@@ -16,9 +16,8 @@ export const FormTarefa = () => {
             {
                 event: e, 
                 formState: formState, 
-                tarefas: tarefaContext.tarefas, 
-                setTarefas: tarefaContext.changeTarefas, 
-                setDisplayState: tarefaContext.changeDisplay
+                setDisplayState: tarefaContext.changeDisplay,
+                dispatchTarefas: tarefaContext.dispatchTarefas,
             })}>
 
             <div className="bg-normal w-full h-fit rounded-[4px] pt-6">

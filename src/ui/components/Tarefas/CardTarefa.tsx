@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { HeadlineSmall } from "../Typography/HeadlineSmall.tsx";
 import { Text } from "../Typography/Text.tsx";
 import { useIsCardTarefaSelected } from "../../logic/hooks/useIsCardTarefaSelected.ts";
+import { AppearAnimated } from "../Animated/AppearAnimated.jsx";
+import { ExpandAnimated } from "../Animated/ExpandAnimated.jsx";
+import { TarefaContext } from "../../logic/contexts/useTarefaContext.tsx";
+import { apagarTarefa } from "../../logic/TarefaReducer/actions.ts";
 
-export const CardTarefa = ({ title, productivityDone, productivityGoal, changeSelected, receivedIsSelected}) => {
-    const [isSelected, setIsSelected] = useIsCardTarefaSelected(changeSelected, title, receivedIsSelected);
+export const CardTarefa = ({ tarefa, changeSelected, receivedIsSelected}) => {
+    const {id, title, productivityDone, productivityGoal} = tarefa;
+    const [isSelected, setIsSelected] = useIsCardTarefaSelected(id, changeSelected, receivedIsSelected);
+    const { dispatchTarefas } = useContext(TarefaContext);  
 
     return (
         <div className="bg-normal py-2.5 flex items-center justify-between rounded-md lg-mobile:py-3">
@@ -34,21 +40,28 @@ export const CardTarefa = ({ title, productivityDone, productivityGoal, changeSe
             
                 {
                     isSelected ? (
-                        <div className="bg-normal absolute right-0 z-10 top-[35px] animate-appear">
-                            <div className="flex flex-col items-center">
-                                
-                                <div className="hover:bg-[#e5dfdf] ease-in-out duration-300 w-full flex items-center justify-center">
-                                    <button className="px-2 py-2 flex items-center justify-center" onClick={() => console.log("Editar")}>
-                                        <Text text="Editar" style={{color: "var(--config)"}}/>
-                                    </button>
-                                </div>
+                        <div className="bg-normal absolute right-0 z-10 top-[35px]">
+                            <ExpandAnimated>       
+                                <AppearAnimated>
+                                    <div className="flex flex-col items-center">         
+                                        <div className="hover:bg-[#e5dfdf] ease-in-out duration-300 w-full flex items-center justify-center">
+                                            <button className="px-2 py-2 flex items-center justify-center" 
+                                                onClick={() => console.log("Editar")}>
 
-                                <div className="hover:bg-[#e5dfdf] ease-in-out duration-300 w-full">
-                                    <button className="px-2 py-2 flex items-center justify-center" onClick={() => console.log("Apagar")}>
-                                        <Text text="Apagar" style={{color: "var(--config)"}}/>
-                                    </button>
-                                </div>
-                            </div>
+                                                <Text text="Editar" style={{color: "var(--config)"}}/>
+                                            </button>
+                                        </div>
+
+                                        <div className="hover:bg-[#e5dfdf] ease-in-out duration-300 w-full">
+                                            <button className="px-2 py-2 flex items-center justify-center" 
+                                                onClick={() => apagarTarefa(dispatchTarefas, id)}>
+
+                                                <Text text="Apagar" style={{color: "var(--config)"}}/>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </AppearAnimated>
+                            </ExpandAnimated>
                         </div>
                     ) : ""
                 }
