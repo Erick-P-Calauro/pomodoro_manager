@@ -15,7 +15,20 @@ module.exports = {
       boxShadow: {
         'tinyBoxShadow': "var(--tinyBoxShadow)",
         'mdBoxhadow': "var(--mdBoxShadow)",
-        'lgBoxShadow': "var(--lgBoxShadow)"
+        'lgBoxShadow': "var(--lgBoxShadow)",
+        'innerBoxShadow': "var(--innerBoxShadow)",
+      },
+
+      keyframes: {
+        appear : {
+          '0%' : {transform: 'translateY(-20px)'},
+          '50%': {transform: 'translateY(-10px)'},
+          '100%': {transform: 'translateY(0px)'}
+        }
+      },
+
+      animation: {
+        appear: 'appear linear 200ms'
       }
     },
 

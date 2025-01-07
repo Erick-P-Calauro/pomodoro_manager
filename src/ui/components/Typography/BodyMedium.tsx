@@ -1,5 +1,5 @@
 import React from "react"
-import { TypographyProps } from "../../types/types";
+import { TypographyProps } from "../../types/types.ts";
 
 export const BodyMedium = ({...props}:TypographyProps) => {
     return (

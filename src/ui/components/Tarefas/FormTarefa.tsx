@@ -6,8 +6,8 @@ import { HandleTarefaForm } from "../../logic/handleTarefaForm.ts";
 import { TarefaContext } from "../../logic/contexts/useTarefaContext.tsx";
 
 export const FormTarefa = () => {
-    const [formState, setFormState] = useState(0);
-    const [ counterState , changeCounterState ] = useFormCounterState();
+    const [ formState, setFormState ] = useState(0);
+    const [ counterState,changeCounterState ] = useFormCounterState();
 
     const tarefaContext = useContext(TarefaContext)
 
@@ -44,11 +44,11 @@ export const FormTarefa = () => {
                                 onChange={(e) => changeCounterState(e.target.value)}/>
                                 
                                 <button type="button" onClick={() => changeCounterState(counterState + 1)} className="bg-normal drop-shadow-lg">
-                                    <img src="/arrow_drop_up.svg" alt="plus counter icon" />
+                                    <img src="/assets/arrow_drop_up.svg" alt="plus counter icon" />
                                 </button>
 
                                 <button type="button" onClick={() => changeCounterState(counterState - 1)} className="bg-normal drop-shadow-lg">
-                                    <img src="/arrow_drop_down.svg" alt="minus counter icon" />
+                                    <img src="/assets/arrow_drop_down.svg" alt="minus counter icon" />
                                 </button>
                             </div>
                             

@@ -7,12 +7,15 @@ import { ButtonTarefa } from "./ButtonTarefa.tsx"
 import { FormTarefa } from "./FormTarefa.tsx"
 import { ThemeContext } from "../../logic/contexts/useThemeContext.tsx"
 import * as constants from "../../types/timer-constants.ts";
+import { mockTarefas } from "../../../data/mocks.ts"
 
 export const Tarefas = () => {
 
     const { status } = useContext(ThemeContext);
     const [display, setDisplay] = useState(0)
-    const [tarefas, setTarefas] = useState<Tarefa[]>([])
+    const [tarefas, setTarefas] = useState<Tarefa[]>([
+        ...mockTarefas
+    ])
 
     const initialTarefaContext = {
         changeDisplay: setDisplay, 

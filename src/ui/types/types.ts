@@ -3,7 +3,6 @@ export const PRODUTIVIDADE = "PRODUTIVIDADE";
 export const DESCANSO_CURTO = "DESCANSO_CURTO";
 export const DESCANSO_LONGO = "DESCANSO_LONGO"
 
-// Theme Context 
 export const MAIN_THEMES = [
     {
         key: "PRODUTIVIDADE",

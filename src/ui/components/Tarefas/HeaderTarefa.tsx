@@ -7,7 +7,7 @@ export function HeaderTarefa() {
             <HeadlineMedium text="Tarefas" style={{color: "var(--normal)"}}/>
             
             <button className="text-normal w-[25px] h-[23px]">
-                <img src="/more_vert.svg" alt="menu icon"></img>
+                <img src="/assets/more_vert.svg" alt="menu icon"></img>
             </button>
         </div>
     );

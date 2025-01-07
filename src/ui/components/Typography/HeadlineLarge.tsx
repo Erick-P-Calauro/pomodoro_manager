@@ -1,5 +1,5 @@
 import React from "react"
-import { TypographyProps } from "../../data";
+import { TypographyProps } from "../../types/types.ts";
 
 export const HeadlineLarge = ({...props}:TypographyProps) => {
     return (
