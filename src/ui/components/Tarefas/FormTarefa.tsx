@@ -73,7 +73,7 @@ export const FormTarefa = () => {
                 
                 <div className="bg-detalhes py-4 px-4 flex items-center justify-between mt-7 rounded-b-[4px] gap-4">
                     { formState === 0 ? // FormState == 0 => Estado Inicial (Sem textarea de descrição e com botão de nova descrição)
-                        <button onClick={() => setFormState(1)} className="bg-detalhes drop-shadow-lg px-3 py-1.5 rounded-sm text-center">
+                        <button type="button" onClick={() => setFormState(1)} className="bg-detalhes drop-shadow-lg px-3 py-1.5 rounded-sm text-center">
                             <BodyExtraSmall text="Nova descrição" style={{color: "var(--normal)"}} />
                         </button> 
                         : 
@@ -81,7 +81,7 @@ export const FormTarefa = () => {
                     }
 
                     <div className="flex items-center gap-3 lg-mobile:gap-4">
-                        <button onClick={() => tarefaContext.changeDisplay(0)} className="py-1">
+                        <button type="button" onClick={() => tarefaContext.changeDisplay(0)} className="py-1">
                             <BodyExtraSmall text="Cancelar" style={{color: "var(--normal)"}} />
                         </button>
 

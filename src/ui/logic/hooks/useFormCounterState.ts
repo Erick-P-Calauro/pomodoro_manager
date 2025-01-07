@@ -6,7 +6,7 @@ export const useFormCounterState = (): [number, (number) => void] => {
     function changeCounterState(value : number) {
         // console.log(value)
 
-        if(value >= 0 && value <= 100) {
+        if(value >= 1 && value <= 100) {
             setCounterState(value)
         }
     }

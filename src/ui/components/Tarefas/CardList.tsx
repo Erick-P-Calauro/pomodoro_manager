@@ -7,7 +7,7 @@ export const CardList = ({tarefas}) => {
         <>
             {
                 tarefas.map((tarefa) => {
-                    return <CardTarefa 
+                    return <CardTarefa key={tarefa.title}
                         title={tarefa.title} 
                         description={tarefa.description} 
                         productivityDone={tarefa.productivityDone} 

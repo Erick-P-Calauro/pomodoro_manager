@@ -34,22 +34,3 @@ export type TypographyProps = {
     text: String
 }
 
-export type ThemeContextType =  {
-    key: string,
-    status: string,
-    colors: {
-        main : string,
-        secondary: string,
-    }
-    changeThemeState: (newTheme: string) => void
-}
-
-export const ThemeContextState: ThemeContextType = {
-    key: "PRODUTIVIDADE",
-    status: "STALLED",
-    colors: {
-        main: "",
-        secondary: "",
-    },
-    changeThemeState: (a) => {}
-}
