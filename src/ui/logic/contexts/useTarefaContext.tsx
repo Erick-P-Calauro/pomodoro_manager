@@ -4,12 +4,14 @@ import { Tarefa } from "../../../data/types";
 export type TarefaStateType = {
     changeDisplay: (number) => void,
     dispatchTarefas: React.Dispatch<React.SetStateAction<Tarefa[]>>,
+    setTarget : React.Dispatch<React.SetStateAction<Object>>
     tarefas: Tarefa[]
 }
 
 const TarefaState: TarefaStateType = {
     changeDisplay: (a) => {},
     dispatchTarefas: (a) => {},
+    setTarget: () => {},
     tarefas : []
 }
 export const TarefaContext = React.createContext(TarefaState);

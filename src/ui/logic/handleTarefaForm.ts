@@ -1,6 +1,6 @@
-import { Tarefa } from "../../data/types"
+import { Tarefa } from "../../data/types.ts"
 import { TarefaFormData } from "../components/Tarefas/FormTarefa.tsx";
-import { cadastrarTarefa } from "./tarefaReducer/actions.ts";
+import { cadastrarTarefa, editarTarefa } from "./tarefaReducer/actions.ts";
 
 export const handleTarefaForm = (
     data : TarefaFormData, 
@@ -10,14 +10,19 @@ export const handleTarefaForm = (
     console.log(data);
 
     const newTarefa: Tarefa = {
-        id: -1, // O id vai ser alterado no reducer
-        title: data.titulo,
+        id: data.id, // O id vai ser alterado no reducer
+        title: data.title,
         description: data.description,
-        productivityDone: 0, // TODO = Puxar do backend
+        productivityDone: data.productivityDone, // TODO = Puxar do backend
         productivityGoal: data.productivityGoal
     };
 
-    // Tarefa-Action
-    cadastrarTarefa(dispatchTarefas, newTarefa);
+    if(data.id === -1) {
+        // Tarefa-Action
+        cadastrarTarefa(dispatchTarefas, newTarefa);
+    }else {
+        editarTarefa(dispatchTarefas, newTarefa);
+    }
+    
     setDisplayState(0)
 }

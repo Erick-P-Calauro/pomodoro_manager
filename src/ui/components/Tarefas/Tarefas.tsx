@@ -8,40 +8,45 @@ import { ThemeContext } from "../../logic/contexts/useThemeContext.tsx"
 import * as constants from "../../types/timer-constants.ts";
 import { mockTarefas } from "../../../data/mocks.ts"
 import { TarefaReducer } from "../../logic/tarefaReducer/reducer.ts"
+import { Tarefa } from "../../../data/types.ts"
 
 export const Tarefas = () => {
 
     const { status } = useContext(ThemeContext);
+    
     const [display, setDisplay] = useState(0)
-
+    const [formTarget, setTarget] = useState<Tarefa>() // Tarefa para edição
     const [tarefas, dispatchTarefas] = useReducer(TarefaReducer, [...mockTarefas])
 
     const initialTarefaContext = {
         changeDisplay: setDisplay, 
         dispatchTarefas: dispatchTarefas, 
+        setTarget: setTarget,
         tarefas: tarefas
     };
-
-    // TODO: Verificar formas melhores de fazer isso;
-    // TODO : Corrigir o setTarefas para useReducer
 
     useEffect(() => {
 
         if(status === constants.DONE_PRODUCTIVITY && tarefas.length !== 0) {    
-            const newTarefas = tarefas;
-            newTarefas[0].productivityDone++;
-
-            //setTarefas(newTarefas);
+            tarefas[0].productivityDone++;
         }
 
     }, [status, tarefas])
+
+    useEffect(() => {
+        
+        if(formTarget !== undefined) {
+            setDisplay(1);
+        }
+
+    }, [formTarget])
 
     return (
         <ColunaTarefas initialContextValue={initialTarefaContext}>
             <HeaderTarefa />
             <CardList tarefas={tarefas} />
             
-            {display === 0 ? <ButtonTarefa /> : <FormTarefa />}
+            {display === 0 ? <ButtonTarefa /> : <FormTarefa formTarget={formTarget} />}
         </ColunaTarefas>
     )
 }

@@ -12,7 +12,18 @@ export const TarefaReducer = (state : Tarefa[], action) => {
         }
 
         case "EDITAR_TAREFA" : {
-            return [...state];
+            const newTarefas : Tarefa[] = [];
+
+            for(let tarefa of state) {
+                if(tarefa.id === action.payload.id) {
+                    newTarefas.push(action.payload);
+                    continue;
+                }
+
+                newTarefas.push(tarefa);
+            }
+
+            return [...newTarefas];
         }
 
         case "APAGAR_TAREFA" : {

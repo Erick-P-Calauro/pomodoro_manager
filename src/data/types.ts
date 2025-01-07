@@ -1,7 +1,7 @@
 export type Tarefa = {
     id: number,
-    title: String,
-    description: String,
+    title: string,
+    description: string,
     //project: Project,
     productivityGoal: number
     productivityDone: number,

@@ -1,34 +1,47 @@
-import React, { useContext,  useState } from "react"
+import React, { useContext, useState } from "react"
 import { BodyExtraSmall } from "../Typography/BodyExtraSmall.tsx";
 import { BodyMedium } from "../Typography/BodyMedium.tsx";
 import { useFormCounterState } from "../../logic/hooks/useFormCounterState.ts";
 import { TarefaContext } from "../../logic/contexts/useTarefaContext.tsx";
 import { useForm } from "react-hook-form";
 import { handleTarefaForm } from "../../logic/handleTarefaForm.ts";
+import { useHandleTarefaEdit } from "../../logic/hooks/useHandleTarefaEdit.ts";
 
 export type TarefaFormData = {
-    titulo: string,
+    id: number,
+    title: string,
     description: string,
     productivityGoal: number,
+    productivityDone: number,
 }
 
-export const FormTarefa = ({ target = {}}) => {
-    const { register, handleSubmit, setValue } = useForm<TarefaFormData>();
+export const FormTarefa = ({ formTarget }) => {
+    const { register, handleSubmit, setValue } = useForm<TarefaFormData>({
+        defaultValues: {
+            id: -1,
+            productivityDone: 0
+        }
+    });
     
     const [ counterState, changeCounterState ] = useFormCounterState(setValue);
     const [ formState, setFormState ] = useState(0);
 
     const tarefaContext = useContext(TarefaContext);
 
+    useHandleTarefaEdit(formTarget, setValue);
+
     return (
         <form onSubmit={handleSubmit(data => handleTarefaForm(data, tarefaContext.changeDisplay, tarefaContext.dispatchTarefas))}>
+            <input {...register("id")} style={{display: "none"}} />
+            <input {...register("productivityDone")} style={{display: "none"}} />
+            
             <div className="bg-normal w-full h-fit rounded-[4px] pt-6">
                 <div className="px-4 space-y-5">
                     <input className="
                         w-full pb-1 bg-normal font-workSans text-config font-medium border-b-2 border-detalhes text-lg lg-mobile:text-xl  
                         focus:outline-none focus:text-xl focus:pb-2
                         placeholder:text-detalhes" 
-                        placeholder="Título da Tarefa" {...register("titulo")}/>
+                        placeholder="Título da Tarefa" {...register("title")}/>
 
                     <div className="space-y-3">
                         <BodyMedium text="Seções de Produtividade" style={{color: "var(--config)"}}/>
