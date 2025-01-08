@@ -1,11 +1,10 @@
 import React, { useContext, useState } from "react"
 import { BodyExtraSmall } from "../Typography/BodyExtraSmall.tsx";
 import { BodyMedium } from "../Typography/BodyMedium.tsx";
-import { useFormCounterState } from "../../logic/hooks/useFormCounterState.ts";
 import { TarefaContext } from "../../logic/contexts/useTarefaContext.tsx";
 import { useForm } from "react-hook-form";
-import { handleTarefaForm } from "../../logic/handleTarefaForm.ts";
-import { useHandleTarefaEdit } from "../../logic/hooks/useHandleTarefaEdit.ts";
+import { useHandleTarefaEdit } from "../../logic/FormTarefa/useHandleTarefaEdit.ts";
+import { handleTarefaForm } from "../../logic/FormTarefa/handleTarefaForm.ts";
 
 export type TarefaFormData = {
     id: number,
@@ -15,23 +14,27 @@ export type TarefaFormData = {
     productivityDone: number,
 }
 
-export const FormTarefa = ({ formTarget }) => {
-    const { register, handleSubmit, setValue } = useForm<TarefaFormData>({
+export const FormTarefa = ({ formTarget, setFormTarget }) => {
+    const { register, handleSubmit, setValue, watch } = useForm<TarefaFormData>({
         defaultValues: {
             id: -1,
+            title: "",
+            description: "",
+            productivityGoal: 0,
             productivityDone: 0
         }
     });
-    
-    const [ counterState, changeCounterState ] = useFormCounterState(setValue);
-    const [ formState, setFormState ] = useState(0);
 
-    const tarefaContext = useContext(TarefaContext);
+    useHandleTarefaEdit({formTarget, setFormTarget, setValue})
 
-    useHandleTarefaEdit(formTarget, setValue);
+    const [ formDisplayState, setFormDisplayState ] = useState(0);
+    const counter = watch("productivityGoal");
+
+    const { changeDisplay, dispatchTarefas} = useContext(TarefaContext);
 
     return (
-        <form onSubmit={handleSubmit(data => handleTarefaForm(data, tarefaContext.changeDisplay, tarefaContext.dispatchTarefas))}>
+        <form onSubmit={handleSubmit(data => handleTarefaForm({data, setDisplayState: changeDisplay, dispatchTarefas}))}>
+            
             <input {...register("id")} style={{display: "none"}} />
             <input {...register("productivityDone")} style={{display: "none"}} />
             
@@ -48,17 +51,16 @@ export const FormTarefa = ({ formTarget }) => {
 
                         <div className="flex items-center gap-4">
                             <div className="flex items-center space-x-1.5">
-                                <input {...register("productivityGoal", {
-                                    onChange(event) { changeCounterState(event.target.value)},
-                                })} 
+                                
+                                <input {...register("productivityGoal")} 
                                     className="focus:outline-none w-9 placeholder:text-detalhes text-center text-config font-workSans drop-shadow-lg" 
                                 />
                                 
-                                <button type="button" onClick={() => changeCounterState(counterState + 1)} className="bg-normal drop-shadow-lg">
+                                <button type="button" onClick={() => setValue("productivityGoal", counter + 1)} className="bg-normal drop-shadow-lg">
                                     <img src="/assets/arrow_drop_up.svg" alt="plus counter icon" />
                                 </button>
 
-                                <button type="button" onClick={() => changeCounterState(counterState - 1)} className="bg-normal drop-shadow-lg">
+                                <button type="button" onClick={() => setValue("productivityGoal", counter - 1)} className="bg-normal drop-shadow-lg">
                                     <img src="/assets/arrow_drop_down.svg" alt="minus counter icon" />
                                 </button>
                             </div>
@@ -70,7 +72,7 @@ export const FormTarefa = ({ formTarget }) => {
                     </div>
 
                     {
-                        formState === 1 ?
+                        formDisplayState === 1 ?
                         <textarea  
                             placeholder="Descrição da tarefa..." 
                             className="text-config text-[10px] lg-mobile:text-xs drop-shadow-lg w-full rounded-sm px-3 py-3
@@ -82,8 +84,8 @@ export const FormTarefa = ({ formTarget }) => {
                 </div> 
                 
                 <div className="bg-detalhes py-4 px-4 flex items-center justify-between mt-7 rounded-b-[4px] gap-4">
-                    { formState === 0 ? // FormState == 0 => Estado Inicial (Sem textarea de descrição e com botão de nova descrição)
-                        <button type="button" onClick={() => setFormState(1)} className="bg-detalhes drop-shadow-lg px-3 py-1.5 rounded-sm text-center">
+                    { formDisplayState === 0 ? // FormState == 0 => Estado Inicial (Sem textarea de descrição e com botão de nova descrição)
+                        <button type="button" onClick={() => setFormDisplayState(1)} className="bg-detalhes drop-shadow-lg px-3 py-1.5 rounded-sm text-center">
                             <BodyExtraSmall text="Nova descrição" style={{color: "var(--normal)"}} />
                         </button> 
                         : 
@@ -91,7 +93,7 @@ export const FormTarefa = ({ formTarget }) => {
                     }
 
                     <div className="flex items-center gap-3 lg-mobile:gap-4">
-                        <button type="button" onClick={() => tarefaContext.changeDisplay(0)} className="py-1">
+                        <button type="button" onClick={() => changeDisplay(0)} className="py-1">
                             <BodyExtraSmall text="Cancelar" style={{color: "var(--normal)"}} />
                         </button>
 

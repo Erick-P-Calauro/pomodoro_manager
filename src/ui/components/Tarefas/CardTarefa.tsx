@@ -8,8 +8,8 @@ import { TarefaContext } from "../../logic/contexts/useTarefaContext.tsx";
 import { apagarTarefa } from "../../logic/tarefaReducer/actions.ts";
 
 export const CardTarefa = ({ tarefa, changeSelected, receivedIsSelected}) => {
-    const {id, title, productivityDone, productivityGoal} = tarefa;
-    const [isSelected, setIsSelected] = useIsCardTarefaSelected(id, changeSelected, receivedIsSelected);
+    const { id, title, productivityDone, productivityGoal } = tarefa;
+    const [ isSelected, setIsSelected ] = useIsCardTarefaSelected(id, changeSelected, receivedIsSelected);
     const { setTarget, dispatchTarefas } = useContext(TarefaContext);  
 
     return (

@@ -14,9 +14,9 @@ export const Tarefas = () => {
 
     const { status } = useContext(ThemeContext);
     
-    const [display, setDisplay] = useState(0)
+    const [display, setDisplay] = useState(0) // Estado de visibilidade de Tarefas (Botão de adicionar ou Formulário)
     const [formTarget, setTarget] = useState<Tarefa>() // Tarefa para edição
-    const [tarefas, dispatchTarefas] = useReducer(TarefaReducer, [...mockTarefas])
+    const [tarefas, dispatchTarefas] = useReducer(TarefaReducer, [...mockTarefas]) // CRUD de Tarefas
 
     const initialTarefaContext = {
         changeDisplay: setDisplay, 
@@ -46,7 +46,7 @@ export const Tarefas = () => {
             <HeaderTarefa />
             <CardList tarefas={tarefas} />
             
-            {display === 0 ? <ButtonTarefa /> : <FormTarefa formTarget={formTarget} />}
+            {display === 0 ? <ButtonTarefa /> : <FormTarefa formTarget={formTarget} setFormTarget={setTarget} />}
         </ColunaTarefas>
     )
 }

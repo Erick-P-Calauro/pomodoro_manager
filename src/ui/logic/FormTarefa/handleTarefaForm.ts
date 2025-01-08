@@ -1,12 +1,16 @@
-import { Tarefa } from "../../data/types.ts"
-import { TarefaFormData } from "../components/Tarefas/FormTarefa.tsx";
-import { cadastrarTarefa, editarTarefa } from "./tarefaReducer/actions.ts";
+import { Tarefa } from "../../../data/types.ts"
+import { TarefaFormData } from "../../components/Tarefas/FormTarefa.tsx";
+import { cadastrarTarefa, editarTarefa } from "../tarefaReducer/actions.ts";
 
-export const handleTarefaForm = (
-    data : TarefaFormData, 
-    setDisplayState : React.Dispatch<React.SetStateAction<Number>>, 
+export const handleTarefaForm = ({
+    data, 
+    setDisplayState, 
+    dispatchTarefas,
+}:{
+    data : TarefaFormData,
+    setDisplayState: React.Dispatch<React.SetStateAction<Number>>,
     dispatchTarefas: React.Dispatch<React.SetStateAction<Tarefa[]>>
-) => {
+})  => {
     console.log(data);
 
     const newTarefa: Tarefa = {
@@ -23,6 +27,6 @@ export const handleTarefaForm = (
     }else {
         editarTarefa(dispatchTarefas, newTarefa);
     }
-    
+
     setDisplayState(0)
 }
