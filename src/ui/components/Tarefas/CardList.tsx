@@ -1,9 +1,8 @@
-import React, { useState } from "react"
+import React from "react"
 import { CardTarefa } from "./CardTarefa.tsx"
 
-export const CardList = ({tarefas}) => {
-    const [tarefaSelected, setTarefaSelected] = useState(-1);
-
+export const CardList = ({tarefas, tarefaSelected, setTarefaSelected}) => {
+    
     return (
         <>
             {

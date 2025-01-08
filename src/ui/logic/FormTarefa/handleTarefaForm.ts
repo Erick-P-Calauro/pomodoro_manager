@@ -5,11 +5,13 @@ import { cadastrarTarefa, editarTarefa } from "../tarefaReducer/actions.ts";
 export const handleTarefaForm = ({
     data, 
     setDisplayState, 
-    dispatchTarefas,
+    dispatchTarefas
+
 }:{
     data : TarefaFormData,
     setDisplayState: React.Dispatch<React.SetStateAction<Number>>,
-    dispatchTarefas: React.Dispatch<React.SetStateAction<Tarefa[]>>
+    dispatchTarefas: React.Dispatch<React.SetStateAction<Tarefa[]>>,
+    
 })  => {
     console.log(data);
 

@@ -14,7 +14,7 @@ export type TarefaFormData = {
     productivityDone: number,
 }
 
-export const FormTarefa = ({ formTarget, setFormTarget }) => {
+export const FormTarefa = ({ formTarget, setFormTarget, setTarefaSelected }) => {
     const { register, handleSubmit, setValue, watch } = useForm<TarefaFormData>({
         defaultValues: {
             id: -1,
@@ -25,7 +25,7 @@ export const FormTarefa = ({ formTarget, setFormTarget }) => {
         }
     });
 
-    useHandleTarefaEdit({formTarget, setFormTarget, setValue})
+    useHandleTarefaEdit({formTarget, setFormTarget, setValue, setTarefaSelected})
 
     const [ formDisplayState, setFormDisplayState ] = useState(0);
     const counter = watch("productivityGoal");
@@ -52,15 +52,15 @@ export const FormTarefa = ({ formTarget, setFormTarget }) => {
                         <div className="flex items-center gap-4">
                             <div className="flex items-center space-x-1.5">
                                 
-                                <input {...register("productivityGoal")} 
+                                <input {...register("productivityGoal", { max: 100 })} 
                                     className="focus:outline-none w-9 placeholder:text-detalhes text-center text-config font-workSans drop-shadow-lg" 
                                 />
                                 
-                                <button type="button" onClick={() => setValue("productivityGoal", counter + 1)} className="bg-normal drop-shadow-lg">
+                                <button type="button" onClick={() => setValue("productivityGoal", counter * 1 + 1)} className="bg-normal drop-shadow-lg">
                                     <img src="/assets/arrow_drop_up.svg" alt="plus counter icon" />
                                 </button>
 
-                                <button type="button" onClick={() => setValue("productivityGoal", counter - 1)} className="bg-normal drop-shadow-lg">
+                                <button type="button" onClick={() => setValue("productivityGoal", counter * 1 - 1)} className="bg-normal drop-shadow-lg">
                                     <img src="/assets/arrow_drop_down.svg" alt="minus counter icon" />
                                 </button>
                             </div>

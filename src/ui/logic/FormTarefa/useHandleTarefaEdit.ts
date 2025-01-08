@@ -6,11 +6,15 @@ import { TarefaFormData } from "../../components/Tarefas/FormTarefa";
 export const useHandleTarefaEdit = ({
     formTarget, 
     setFormTarget, 
-    setValue
+    setValue,
+    setTarefaSelected,
+
 }: {
     formTarget: Tarefa,
     setFormTarget: React.Dispatch<React.SetStateAction<Tarefa | undefined>>,
     setValue: UseFormSetValue<TarefaFormData>
+    setTarefaSelected: React.Dispatch<React.SetStateAction<number>>,
+
 }) => {
     
     useEffect(() => {
@@ -28,5 +32,8 @@ export const useHandleTarefaEdit = ({
             setFormTarget(undefined);
         }
 
-    }, [formTarget, setValue, setFormTarget])
+        // Retira o menu da tela
+        setTarefaSelected(-1);
+
+    }, [formTarget, setValue, setFormTarget, setTarefaSelected])
 }
