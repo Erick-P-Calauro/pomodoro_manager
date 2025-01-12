@@ -5,6 +5,7 @@ import { TarefaContext } from "../../logic/contexts/useTarefaContext.tsx";
 import { useForm } from "react-hook-form";
 import { useHandleTarefaEdit } from "../../logic/FormTarefa/useHandleTarefaEdit.ts";
 import { handleTarefaForm } from "../../logic/FormTarefa/handleTarefaForm.ts";
+import { apagarTarefa } from "../../logic/tarefaReducer/actions.ts";
 
 export type TarefaFormData = {
     id: number,
@@ -14,7 +15,7 @@ export type TarefaFormData = {
     productivityDone: number,
 }
 
-export const FormTarefa = ({ formTarget, setFormTarget, setTarefaSelected }) => {
+export const FormTarefa = ({ formTarget, setFormTarget}) => {
     const { register, handleSubmit, setValue, watch } = useForm<TarefaFormData>({
         defaultValues: {
             id: -1,
@@ -25,10 +26,12 @@ export const FormTarefa = ({ formTarget, setFormTarget, setTarefaSelected }) => 
         }
     });
 
-    useHandleTarefaEdit({formTarget, setFormTarget, setValue, setTarefaSelected})
+    useHandleTarefaEdit({formTarget, setFormTarget, setValue})
 
     const [ formDisplayState, setFormDisplayState ] = useState(0);
+    
     const counter = watch("productivityGoal");
+    const tarefaId = watch("id");
 
     const { changeDisplay, dispatchTarefas} = useContext(TarefaContext);
 
@@ -73,24 +76,38 @@ export const FormTarefa = ({ formTarget, setFormTarget, setTarefaSelected }) => 
 
                     {
                         formDisplayState === 1 ?
-                        <textarea  
+                        
+                        <div className="space-y-4">
+                            <button onClick={() => setFormDisplayState(0)} type="button" className="flex items-center">
+                                <BodyMedium text="Descrição" style={{color: "var(--config)"}}/>
+                                <img src="/assets/arrow_drop_up.svg" style={{rotate: "180deg"}} alt="arrow drop bottom icon"/>
+                            </button>
+
+                            <textarea  
                             placeholder="Descrição da tarefa..." 
                             className="text-config text-[10px] lg-mobile:text-xs drop-shadow-lg w-full rounded-sm px-3 py-3
                                 focus:outline-none" {...register("description")}/>
+                        </div>
+                        
                         :
-                        <></>
+
+                        <button onClick={() => setFormDisplayState(1)} type="button" className="flex items-center">
+                            <BodyMedium text="Descrição" style={{color: "var(--config)"}}/>
+                            <img src="/assets/arrow_drop_up.svg" style={{rotate: "90deg"}} alt="arrow drop right icon"/>
+                        </button>
                     }
 
                 </div> 
                 
                 <div className="bg-detalhes py-4 px-4 flex items-center justify-between mt-7 rounded-b-[4px] gap-4">
-                    { formDisplayState === 0 ? // FormState == 0 => Estado Inicial (Sem textarea de descrição e com botão de nova descrição)
-                        <button type="button" onClick={() => setFormDisplayState(1)} className="bg-detalhes drop-shadow-lg px-3 py-1.5 rounded-sm text-center">
-                            <BodyExtraSmall text="Nova descrição" style={{color: "var(--normal)"}} />
-                        </button> 
-                        : 
-                        <div></div>
-                    }
+                    
+                    <button type="button" onClick={() => {
+                        apagarTarefa(dispatchTarefas, tarefaId);
+                        changeDisplay(0);
+
+                    }} className="bg-detalhes shadow-mdBoxhadow px-3 py-1.5 rounded-sm text-center">
+                        <img src="/assets/delete.svg" alt="delete icon"/> 
+                    </button> 
 
                     <div className="flex items-center gap-3 lg-mobile:gap-4">
                         <button type="button" onClick={() => changeDisplay(0)} className="py-1">

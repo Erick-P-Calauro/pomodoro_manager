@@ -17,7 +17,6 @@ export const Tarefas = () => {
     const [display, setDisplay] = useState(0) // Estado de visibilidade de Tarefas (Botão de adicionar ou Formulário
     const [tarefas, dispatchTarefas] = useReducer(TarefaReducer, [...mockTarefas]) // CRUD de Tarefas
     const [formTarget, setTarget] = useState<Tarefa>() // Tarefa para edição
-    const [tarefaSelected, setTarefaSelected] = useState(-1); // Tarefa que está mostrando menu com "EDITAR" e "APAGAR"
 
     const initialTarefaContext = {
         changeDisplay: setDisplay, 
@@ -47,18 +46,14 @@ export const Tarefas = () => {
             <HeaderTarefa />
             <CardList 
                 tarefas={tarefas} 
-                tarefaSelected={tarefaSelected} 
-                setTarefaSelected={setTarefaSelected} 
-            
             />
             
             {display === 0 ? <ButtonTarefa /> : 
             <FormTarefa 
                 formTarget={formTarget} 
                 setFormTarget={setTarget} 
-                setTarefaSelected={setTarefaSelected}
-
             />}
+
         </ColunaTarefas>
     )
 }

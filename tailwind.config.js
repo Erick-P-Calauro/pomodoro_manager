@@ -18,27 +18,6 @@ module.exports = {
         'lgBoxShadow': "var(--lgBoxShadow)",
         'innerBoxShadow': "var(--innerBoxShadow)",
       },
-
-      keyframes: {
-        appear : {
-          '0%' : {transform: 'translateY(-20px)'},
-          '50%': {transform: 'translateY(-10px)'},
-          '100%': {transform: 'translateY(0px)'}
-        },
-
-        expand : {
-          '0%' : {transform: 'scaleX(0)'},
-          '25%': {transform: 'scaleX(1)'},
-          '50%': {transform: 'scaleX(2)'},
-          '75%':  {transform: 'scaleX(1.5)'},
-          '100%': {transform: 'scaleX(1)'}
-        }
-      },
-
-      animation: {
-        appear: 'appear linear 250ms',
-        expand: 'expand linear 300ms'
-      }
     },
 
     colors: {
