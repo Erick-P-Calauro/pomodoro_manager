@@ -1,23 +1,40 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { HeadlineSmall } from "../Typography/HeadlineSmall.tsx";
 import { TarefaContext } from "../../logic/contexts/useTarefaContext.tsx";
 
 export const CardTarefa = ({ tarefa}) => {
+
+    const [completeStatus, setCompleteStatus] = useState(false);
+
     const { title, productivityDone, productivityGoal } = tarefa;
-    const { setTarget } = useContext(TarefaContext);  
+    const { setTarget } = useContext(TarefaContext); 
+    
+    useEffect(() => {
+
+        if(productivityDone === productivityGoal) {
+            setCompleteStatus(true);
+        }
+
+    }, [productivityDone, productivityGoal])
 
     return (
         <div className="bg-normal py-2.5 flex items-center justify-between rounded-md lg-mobile:py-3">
             <div className="flex items-center">
-                <button className="mx-2">
+                <button className="mx-2" onClick={() => setCompleteStatus(s => !s)}>
                     <img className="w-[22px] h-[21px]" src="/assets/check_circle.svg" alt="check icon" />
                 </button>
 
-                <HeadlineSmall text={title} style={{color: "var(--config)"}}/>
+                {
+                    completeStatus ?
+                    <s><HeadlineSmall text={title} style={{color: "var(--config)"}}/></s>
+                    :
+                    <HeadlineSmall text={title} style={{color: "var(--config)"}}/>
+                }
             </div>
 
             <div className="relative flex items-center">
                 <HeadlineSmall text={productivityDone.toString() + "/" + productivityGoal.toString()} style={{color: "var(--config)", marginRight: "1.5rem"}} />
+                
                 <button onClick={() => setTarget(tarefa)} className="text-center">
                     <svg className="fill-config" width="24" height="24" viewBox="0 0 24 24">
                         <g clipPath="url(#clip0_6_13410)">
