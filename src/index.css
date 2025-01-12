@@ -10,10 +10,31 @@ body,
     height: 150%; /* Pensar em uma forma melhor de arrumar o problema do formTarefa de exceder o tamanho do body*/
 }
 
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+
+input[type="color"] {
+    appearance: none;
+    -webkit-appearance: none;
+    
+    border: none;
+    outline: none;
+    background-color: inherit;
+    
+    padding: 0;
+    margin: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
 }
 
 @layer base {

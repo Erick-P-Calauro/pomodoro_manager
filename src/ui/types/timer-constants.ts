@@ -1,13 +1,3 @@
-// Initial Timer Value 
-
-//export const INITIAL_PRODUTIVIDADE_TIMER = new Date(0,0,0,0,30,0); // 30 Min
-//export const INITIAL_DESCANSO_CURTO_TIMER = new Date(0,0,0,0,5,0); // 5 Min
-// export const INITIAL_DESCANSO_LONGO_TIMER = new Date(0,0,0,0,10,0); // 10 Min
-
-export const INITIAL_PRODUTIVIDADE_TIMER = new Date(0,0,0,0,0,3); // 30 Min
-export const INITIAL_DESCANSO_CURTO_TIMER = new Date(0,0,0,0,0,3); // 5 Min
-export const INITIAL_DESCANSO_LONGO_TIMER = new Date(0,0,0,0,0,3); // 10 Min
-
 // TimerState Status
 // export const STALLED = "STALLED";
 // export const RUNNING = "RUNNING";

@@ -6,3 +6,17 @@ export type Tarefa = {
     productivityGoal: number
     productivityDone: number,
 }
+
+export type Settings = {
+    timer : {
+        productivity: number,
+        short: number,
+        long: number
+    }
+    
+    theme: {
+        productivity: string,
+        short: string,
+        long: string
+    },
+}

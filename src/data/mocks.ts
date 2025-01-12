@@ -19,14 +19,14 @@ export const mockTarefas : Tarefa[] = [
     {
         id: 1,
         title: "Tarefa 2",
-        description: "Esta é a tarefa 1",
+        description: "Esta é a tarefa 2",
         productivityGoal: 2,
         productivityDone: 1,
     },
     {
         id: 2,
         title: "Tarefa 3",
-        description: "Esta é a tarefa 1",
+        description: "Esta é a tarefa 3",
         productivityGoal: 3,
         productivityDone: 2,
     }

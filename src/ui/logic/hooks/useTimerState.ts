@@ -1,11 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { addSeconds } from "date-fns";
 import * as constants from "../../types/timer-constants.ts";
 import { DESCANSO_CURTO, PRODUTIVIDADE } from "../../types/types.ts";
+import { SettingsContext } from "../contexts/useSettingsContext.tsx";
+import { Settings } from "../../../data/types.ts";
 
 export const useTimerState = (key) : [Date, boolean, string, () => void] => {
 
-    const initialTimeDate = defineInitialTimeDate(key);
+    const { settings } = useContext(SettingsContext);
+    const initialTimeDate = defineInitialTimeDate(key, settings);
+
     const [ timer, setTimerValue ] = useState(initialTimeDate);
     const [ isRunning, setIsRunning ] = useState(false); 
     const [ status, setStatus ] = useState(constants.EVEN);
@@ -17,7 +21,7 @@ export const useTimerState = (key) : [Date, boolean, string, () => void] => {
         // Bloco de mudança do valor de timer baseado no tema
         if(keyRef.current !== key) {
             
-            const newTimeDate = defineInitialTimeDate(key);
+            const newTimeDate = defineInitialTimeDate(key, settings);
             setTimerValue(newTimeDate);
             setIsRunning(false);
             setStatus(constants.EVEN);
@@ -48,7 +52,7 @@ export const useTimerState = (key) : [Date, boolean, string, () => void] => {
             clearInterval(interval);
         }
 
-    }, [isRunning, key, setStatus])
+    }, [isRunning, key, setStatus, settings])
 
     const controlTimer = () => {
         setIsRunning(r => !r);
@@ -59,10 +63,11 @@ export const useTimerState = (key) : [Date, boolean, string, () => void] => {
 
 // ================== Função para definir valores baseado no tema ================================================================
 
-const defineInitialTimeDate = (key : string) => {
+const defineInitialTimeDate = (key : string, settings : Settings) => {
     return key === PRODUTIVIDADE ? 
-    constants.INITIAL_PRODUTIVIDADE_TIMER : key === DESCANSO_CURTO ? 
-    constants.INITIAL_DESCANSO_CURTO_TIMER : constants.INITIAL_DESCANSO_LONGO_TIMER;
+    new Date(0,0,0,0, settings.timer.productivity) : key === DESCANSO_CURTO ? 
+    new Date(0,0,0,0, settings.timer.short) : 
+    new Date(0,0,0,0, settings.timer.long);
 }
 
 const setStatusByStepDone = (key: string, setStatus: Function) => {
