@@ -28,10 +28,11 @@ module.exports = {
       descansoLongo: "var(--descansoLongo)",
       descansoLongo2: "var(--descansoLongo2)",
       normal: "var(--normal)",
+      lightNormal: "#efefef",
       config: "var(--config)",
       detalhes: "var(--detalhes)",
       main: "var(--main)",
-      main2: "var(--main2)"
+      main2: "var(--main2)",
     },
 
     screens: {
@@ -40,6 +41,8 @@ module.exports = {
       'desktop': '960px',
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar')
+  ],
 }
 

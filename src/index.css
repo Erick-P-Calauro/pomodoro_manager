@@ -19,13 +19,20 @@ input[type="number"]::-webkit-outer-spin-button {
 @layer base {
     :root {
 
-        /* Cores */
-        --produtividade: #EB6B6B;
-        --produtividade2: #D75757;
-        --descansoCurto: #7BCAAD;
-        --descansoCurto2: #67B699;
-        --descansoLongo: #98AFE1;
-        --descansoLongo2: #849BCD;
+        /* Cores Principais */
+        /* Regra : Diminuir 20 unidades de cada cor para derivar segunda cor do tema*/
+
+        --produtividade: rgb(235, 107, 107);
+        --produtividade2: rgb(215, 87, 87);
+        
+        --descansoCurto: rgb(123, 202, 173);
+        --descansoCurto2: rgb(103, 182, 153);
+        
+        --descansoLongo: rgb(152, 175, 225);
+        --descansoLongo2: rgb(132, 155, 205);
+
+        /* Cores Auxiliares */
+
         --normal: #FAF6F6;
         --config: #5E5252;
         --detalhes: #C9C0C0;
