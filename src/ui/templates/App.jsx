@@ -9,7 +9,7 @@ function App() {
   const { colors } = useContext(ThemeContext);
 
   return (
-    <div className="w-full h-full flex justify-center" style={{backgroundColor: colors.secondary}}>
+    <div className="w-full h-full flex justify-center ease-in-out duration-200" style={{backgroundColor: colors.secondary}}>
       <div className="
           sm-mobile:max-w-[375px] 
           lg-mobile:max-w-[715px] 

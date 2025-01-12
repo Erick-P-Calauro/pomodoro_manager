@@ -10,7 +10,7 @@ export const TimerStateButton = ({ text, context } : { text : string, context: T
 
     return (
         <button id={"change"+text} onClick={() => changeThemeState(text)} 
-            className="rounded-sm px-3 py-1.5 flex lg-mobile:px-4 lg-mobile:py-3" 
+            className="rounded-sm px-3 py-1.5 flex lg-mobile:px-4 lg-mobile:py-3 ease-in-out duration-200" 
             style={{
                 backgroundColor: key === text ? secondary : main,
                 boxShadow: key === text ? "var(--mdBoxShadow)" : ""}}>
