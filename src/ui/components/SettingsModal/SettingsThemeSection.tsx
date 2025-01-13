@@ -7,7 +7,7 @@ export const SettingsThemeSection = () => {
     const { register } = useFormContext();
 
     return (
-        <div className="w-full space-y-3 px-3 pb-6">
+        <div className="w-full space-y-3 px-3 pt-5 pb-6">
             <div className="flex items-center gap-1">
                 <svg height="20px" viewBox="0 -960 960 960" width="24px" className="fill-config">
                     <path d="M80 0v-160h800V0H80Zm160-320h56l312-311-29-29-28-28-311 312v56Zm-80 80v-170l448-447q11-11 25.5-17t30.5-6q16 
@@ -20,7 +20,7 @@ export const SettingsThemeSection = () => {
 
             <div className="space-y-2">
 
-                <form className="flex items-center justify-between">
+                <div className="flex items-center justify-between">
                     <BodyMedium text="Cores de tema" style={{color: "var(--config)", fontWeight: "normal"}}/>
                 
                     <div className="flex items-center gap-2">
@@ -28,7 +28,7 @@ export const SettingsThemeSection = () => {
                         <input {...register("themeShort")} type="color" className="w-7 h-7 rounded-sm"/>
                         <input {...register("themeLong")} type="color" className="w-7 h-7 rounded-sm"/>
                     </div>
-                </form>
+                </div>
                 
             </div>
         </div>

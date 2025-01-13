@@ -6,27 +6,19 @@ import { Tarefas } from "../components/Tarefas/Tarefas.tsx";
 import { SettingsModal } from "../components/SettingsModal/SettingsModal.tsx";
 import { SettingsProvider } from "../logic/contexts/useSettingsContext.tsx";
 import { Settings } from "../../data/types.ts";
+import { defaultSettings } from "../../utils/settings.ts";
+import { useThemeBySettings } from "../logic/hooks/useThemeBySettings.ts";
 
 function App() {
 
-  const [settings, setSettings] = useState<Settings>({
-    timer: {
-        productivity: 30,
-        short: 5,
-        long: 10
-    },
-
-    theme: {
-        productivity: "#EB6B6B",
-        short: "#7BCAAD",
-        long: "#98AFE1"
-    },
-  });
+  const [settings, setSettings] = useState<Settings>(defaultSettings);
   
   const [isSettingsOpen , setIsSettingsOpen ] = useState(false);
   // const [isReportOpen, setIsReportOpen ] = useState(false);
 
   const { colors } = useContext(ThemeContext);
+
+  useThemeBySettings(settings);
 
   return (
     <SettingsProvider value={{settings: settings, changeSettings: setSettings}}>

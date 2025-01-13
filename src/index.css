@@ -42,6 +42,7 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 
         /* Cores Principais */
         /* Regra : Diminuir 20 unidades de cada cor para derivar segunda cor do tema*/
+        /* Regra : Chroma-JS : darken 0.4 */ 
 
         --produtividade: rgb(235, 107, 107);
         --produtividade2: rgb(215, 87, 87);

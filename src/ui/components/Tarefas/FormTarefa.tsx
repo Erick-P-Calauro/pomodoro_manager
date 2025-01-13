@@ -3,9 +3,9 @@ import { BodyExtraSmall } from "../Typography/BodyExtraSmall.tsx";
 import { BodyMedium } from "../Typography/BodyMedium.tsx";
 import { TarefaContext } from "../../logic/contexts/useTarefaContext.tsx";
 import { useForm } from "react-hook-form";
-import { useHandleTarefaEdit } from "../../logic/FormTarefa/useHandleTarefaEdit.ts";
-import { handleTarefaForm } from "../../logic/FormTarefa/handleTarefaForm.ts";
 import { apagarTarefa } from "../../logic/tarefaReducer/actions.ts";
+import { useHandleTarefaEdit } from "../../logic/hooks/useHandleTarefaEdit.ts";
+import { handleTarefaForm } from "../../logic/forms/handleTarefaForm.ts";
 
 export type TarefaFormData = {
     id: number,

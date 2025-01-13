@@ -8,17 +8,8 @@ import { Divider } from "./Divider.tsx"
 import { SettingsBox } from "./SettingsBox.tsx"
 import { useForm, FormProvider} from "react-hook-form";
 import { SettingsContext } from "../../logic/contexts/useSettingsContext.tsx"
-
-type SettingsModalForm = {
-
-    timerProductivity : number,
-    timerShort : number,
-    timerLong: number,
-
-    themeProductivity : string,
-    themeShort: any,
-    themeLong: string,
-}
+import { SettingsModalForm } from "../../types/types.ts"
+import { handleSettingsForm } from "../../logic/forms/handleSettingsForm.ts"
 
 export const SettingsModal = ({ setIsOpen }) => {
 
@@ -40,11 +31,17 @@ export const SettingsModal = ({ setIsOpen }) => {
         <Modal>
             <SettingsBox>
                 <FormProvider {...formMethods}>
-                    <SettingsHeader />
-                    <SettingsTimerSection />
-                    <Divider />
-                    <SettingsThemeSection />
-                    <SettingsFooter setIsOpen={setIsOpen} />
+                    <form onSubmit={formMethods.handleSubmit(data => {
+                        changeSettings(handleSettingsForm(data));
+                        setIsOpen(false);
+
+                    })}>
+                        <SettingsHeader />
+                        <SettingsTimerSection />
+                        <Divider />
+                        <SettingsThemeSection />
+                        <SettingsFooter />
+                    </form>
                 </FormProvider>
             </SettingsBox>
         </Modal>

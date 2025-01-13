@@ -28,6 +28,17 @@ export const MAIN_THEMES = [
 
 ]
 
+
+export type SettingsModalForm = {
+    timerProductivity : number,
+    timerShort : number,
+    timerLong: number,
+
+    themeProductivity : string,
+    themeShort: any,
+    themeLong: string,
+}
+
 export type TypographyProps = {
     style: React.CSSProperties | undefined ,
     text: String

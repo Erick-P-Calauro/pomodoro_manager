@@ -7,7 +7,7 @@ export const SettingsTimerSection = () => {
     const { register } = useFormContext();
     
     return (
-        <div className="w-full px-3 space-y-3">
+        <div className="w-full px-3 pt-5 space-y-3">
                             
             <div className="flex items-center gap-1">
                 <svg height="20px" viewBox="0 -960 960 960" width="24px" className="fill-config">
@@ -22,7 +22,7 @@ export const SettingsTimerSection = () => {
             <div className="space-y-2">
                 <BodyMedium text="Tempo (em minutos)" style={{color: "var(--config)", fontWeight: "bold"}}/>
 
-                <form className="grid space-x-2 grid-cols-3">
+                <div className="grid space-x-2 grid-cols-3">
                     <div className="flex flex-col gap-2">
                         <BodyMedium text="Produtividade" style={{color: "var(--config)", fontWeight: "normal"}}/>
                         <input type="number" {...register("timerProductivity")}
@@ -40,7 +40,7 @@ export const SettingsTimerSection = () => {
                         <input type="number" {...register("timerLong")}
                             className="bg-lightNormal px-3 py-2 text-config placeholder:text-detalhes"/>
                     </div>
-                </form>
+                </div>
                 
             </div>
         </div>

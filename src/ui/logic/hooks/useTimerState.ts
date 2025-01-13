@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { addSeconds } from "date-fns";
 import * as constants from "../../types/timer-constants.ts";
 import { DESCANSO_CURTO, PRODUTIVIDADE } from "../../types/types.ts";
@@ -14,20 +14,17 @@ export const useTimerState = (key) : [Date, boolean, string, () => void] => {
     const [ isRunning, setIsRunning ] = useState(false); 
     const [ status, setStatus ] = useState(constants.EVEN);
 
-    const keyRef = useRef(key);
-
+    // Bloco de mudança do valor de timer baseado no tema e nas configurações
     useEffect(() => {
 
-        // Bloco de mudança do valor de timer baseado no tema
-        if(keyRef.current !== key) {
-            
-            const newTimeDate = defineInitialTimeDate(key, settings);
-            setTimerValue(newTimeDate);
-            setIsRunning(false);
-            setStatus(constants.EVEN);
+        const newTimeDate = defineInitialTimeDate(key, settings);
+        setTimerValue(newTimeDate);
+        setIsRunning(false);
+        setStatus(constants.EVEN);
 
-            keyRef.current = key;
-        }
+    }, [key, settings])
+
+    useEffect(() => {
         
         // Bloco de mudança no valor do timer baseado no isRunning
         const interval = setInterval(() => {
@@ -52,7 +49,7 @@ export const useTimerState = (key) : [Date, boolean, string, () => void] => {
             clearInterval(interval);
         }
 
-    }, [isRunning, key, setStatus, settings])
+    }, [isRunning, setStatus, key, settings])
 
     const controlTimer = () => {
         setIsRunning(r => !r);
