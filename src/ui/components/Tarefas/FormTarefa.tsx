@@ -101,13 +101,17 @@ export const FormTarefa = ({ formTarget, setFormTarget}) => {
                 
                 <div className="bg-detalhes py-4 px-4 flex items-center justify-between mt-7 rounded-b-[4px] gap-4">
                     
-                    <button type="button" onClick={() => {
-                        apagarTarefa(dispatchTarefas, tarefaId);
-                        changeDisplay(0);
+                    {tarefaId !== -1 ? (
+                        <button type="button" onClick={() => {
+                            apagarTarefa(dispatchTarefas, tarefaId);
+                            changeDisplay(0);
 
-                    }} className="bg-detalhes shadow-mdBoxhadow px-3 py-1.5 rounded-sm text-center">
-                        <img src="/assets/delete.svg" alt="delete icon"/> 
-                    </button> 
+                        }} className="bg-detalhes shadow-mdBoxhadow px-3 py-1.5 rounded-sm text-center">
+                            <img src="/assets/delete.svg" alt="delete icon"/> 
+                        </button>)  
+                        : 
+                        <div></div>
+                    }
 
                     <div className="flex items-center gap-3 lg-mobile:gap-4">
                         <button type="button" onClick={() => changeDisplay(0)} className="py-1">
