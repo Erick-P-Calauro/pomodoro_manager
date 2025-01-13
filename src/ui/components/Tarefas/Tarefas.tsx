@@ -5,10 +5,10 @@ import { CardList } from "./CardList.tsx"
 import { ButtonTarefa } from "./ButtonTarefa.tsx"
 import { FormTarefa } from "./FormTarefa.tsx"
 import { ThemeContext } from "../../logic/contexts/useThemeContext.tsx"
-import * as constants from "../../types/timer-constants.ts";
 import { mockTarefas } from "../../../data/mocks.ts"
 import { TarefaReducer } from "../../logic/tarefaReducer/reducer.ts"
 import { Tarefa } from "../../../data/types.ts"
+import { useTarefaStatus } from "../../logic/hooks/useTarefaStatus.ts"
 
 export const Tarefas = () => {
 
@@ -25,13 +25,8 @@ export const Tarefas = () => {
         tarefas: tarefas
     };
 
-    useEffect(() => {
-
-        if(status === constants.DONE_PRODUCTIVITY && tarefas.length !== 0) {    
-            tarefas[0].productivityDone++;
-        }
-
-    }, [status, tarefas])
+    // Manipulação do estado a partir das sessões de produtividade
+    useTarefaStatus(tarefas, status);
 
     useEffect(() => {
         

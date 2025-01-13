@@ -51,6 +51,16 @@ export const useTimerState = (key) : [Date, boolean, string, () => void] => {
 
     }, [isRunning, setStatus, key, settings])
 
+    // Requisitar permissão para notificações 
+    // Depende do clique no botão "Iniciar" do Timer
+    useEffect(() => {
+
+        if(isRunning === true && Notification.permission !== "granted") {
+            Notification.requestPermission();
+        }
+
+    }, [isRunning])
+
     const controlTimer = () => {
         setIsRunning(r => !r);
     }
@@ -62,7 +72,7 @@ export const useTimerState = (key) : [Date, boolean, string, () => void] => {
 
 const defineInitialTimeDate = (key : string, settings : Settings) => {
     return key === PRODUTIVIDADE ? 
-    new Date(0,0,0,0, settings.timer.productivity) : key === DESCANSO_CURTO ? 
+    new Date(0,0,0,0, settings.timer.productivity, 2) : key === DESCANSO_CURTO ? 
     new Date(0,0,0,0, settings.timer.short) : 
     new Date(0,0,0,0, settings.timer.long);
 }
