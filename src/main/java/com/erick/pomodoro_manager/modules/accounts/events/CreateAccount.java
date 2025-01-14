@@ -9,7 +9,6 @@ import lombok.Setter;
 public class CreateAccount extends AccountEvent {
     
     private final Account account;
-    private Account response;
 
     public CreateAccount(Object source, Account account) {
         super(source);

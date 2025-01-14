@@ -1,16 +1,16 @@
-package com.erick.pomodoro_manager.modules.accounts;
+package com.erick.pomodoro_manager.modules.projects;
 
+import java.util.List;
 import java.util.UUID;
 
-import com.erick.pomodoro_manager.modules.settings.Settings;
+import com.erick.pomodoro_manager.modules.tasks.Task;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -21,24 +21,18 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Getter
-public class Account {
+@Setter
+public class Project {
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uid;
 
     @NotBlank
-    @Size(min = 2)
+    @Size(min = 3)
     private String name;
 
-    @NotBlank
-    @Size(min = 6)
-    private String password;
-
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-    @JoinColumn(name="settings_id")
-    private Settings settings;
-
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
+    private List<Task> tasks;
 }
