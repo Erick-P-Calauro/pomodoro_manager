@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import com.erick.pomodoro_manager.configuration.MaxListSizeConstraint;
 import com.erick.pomodoro_manager.modules.accounts.Account;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

@@ -1,19 +1,20 @@
-package com.erick.pomodoro_manager.modules.accounts.events;
+package com.erick.pomodoro_manager.modules.projects.events;
 
 import java.util.UUID;
 import com.erick.pomodoro_manager.configuration.abstraction.EntityEvent;
-import com.erick.pomodoro_manager.modules.accounts.Account;
+import com.erick.pomodoro_manager.modules.projects.Project;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class GetAccount extends EntityEvent<Account> {
+public class GetProject extends EntityEvent<Project>  {
     
     private final UUID uid;
-    
-    public GetAccount(Object source, UUID uid) {
+
+    public GetProject(Object source, UUID uid) {
         super(source);
         this.uid = uid;
     }
+
 }

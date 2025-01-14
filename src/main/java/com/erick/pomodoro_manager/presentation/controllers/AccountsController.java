@@ -36,6 +36,16 @@ public class AccountsController {
     @Autowired
     ModelMapper mapper;
 
+    @PostMapping("/create")
+    public ResponseEntity<AccountResponse> createAccount(@Valid @RequestBody AccountCreate newAccountCreate, BindingResult result) {        
+
+        Account newAccount = mapper.map(newAccountCreate, Account.class);
+        newAccount = accountPublisher.publishEvent(new CreateAccount(this, newAccount));
+        AccountResponse accountDTO = mapper.map(newAccount, AccountResponse.class);
+
+        return ResponseEntity.ok().body(accountDTO);
+    }
+
     @GetMapping 
     public ResponseEntity<List<AccountResponse>> getAllAccounts() {
         
@@ -53,16 +63,6 @@ public class AccountsController {
         
         Account account = accountPublisher.publishEvent(new GetAccount(this, accountToFind));
         AccountResponse accountDTO = mapper.map(account, AccountResponse.class);
-
-        return ResponseEntity.ok().body(accountDTO);
-    }
-
-    @PostMapping("/create")
-    public ResponseEntity<AccountResponse> createAccount(@Valid @RequestBody AccountCreate newAccountCreate, BindingResult result) {        
-
-        Account newAccount = mapper.map(newAccountCreate, Account.class);
-        newAccount = accountPublisher.publishEvent(new CreateAccount(this, newAccount));
-        AccountResponse accountDTO = mapper.map(newAccount, AccountResponse.class);
 
         return ResponseEntity.ok().body(accountDTO);
     }

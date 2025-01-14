@@ -1,4 +1,4 @@
-package com.erick.pomodoro_manager.modules.accounts;
+package com.erick.pomodoro_manager.modules.projects;
 
 import java.util.List;
 
@@ -10,18 +10,18 @@ import com.erick.pomodoro_manager.configuration.abstraction.EntityEvent;
 import com.erick.pomodoro_manager.configuration.abstraction.ListEntityEvent;
 
 @Component
-public class AccountPublisher  {
+public class ProjectPublisher   {
     
     @Autowired
     ApplicationEventPublisher publisher;
 
-    public Account publishEvent(EntityEvent<Account> event) {
+    public Project publishEvent(EntityEvent<Project> event) {
         publisher.publishEvent(event);
 
         return event.getResponse();
     }
 
-    public List<Account> publishEvent(ListEntityEvent<Account> event) {
+    public List<Project> publishEvent(ListEntityEvent<Project> event) {
         publisher.publishEvent(event);
 
         return event.getResponse();
@@ -30,5 +30,4 @@ public class AccountPublisher  {
     public void publishEvent(ApplicationEvent event) {
         publisher.publishEvent(event);
     }
-
 }

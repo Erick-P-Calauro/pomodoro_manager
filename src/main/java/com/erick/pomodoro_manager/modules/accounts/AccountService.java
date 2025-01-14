@@ -23,7 +23,7 @@ public class AccountService {
 
     @EventListener
     public void getAllAccounts(GetAllAccounts event) {
-        event.setAccounts(repository.findAll());
+        event.setResponse(repository.findAll());
     }
 
     @EventListener
