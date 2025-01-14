@@ -37,7 +37,7 @@ public class Account {
     @Size(min = 6)
     private String password;
 
-    @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="settings_id")
     private Settings settings;
 

@@ -1,4 +1,4 @@
-package com.erick.pomodoro_manager.modules.settings;
+package com.erick.pomodoro_manager.configuration;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

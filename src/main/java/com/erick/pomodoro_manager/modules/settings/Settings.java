@@ -36,7 +36,7 @@ public class Settings {
     @MaxListSizeConstraint
     private List<String> themeColors;
 
-    @OneToOne
+    @OneToOne(mappedBy = "settings") 
     private Account account;
 
 }
