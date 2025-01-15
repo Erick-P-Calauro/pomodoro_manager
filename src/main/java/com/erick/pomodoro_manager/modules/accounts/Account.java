@@ -5,6 +5,7 @@ import java.util.UUID;
 import com.erick.pomodoro_manager.modules.settings.Settings;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,6 +32,7 @@ public class Account {
 
     @NotBlank
     @Size(min = 2)
+    @Column(unique = true)
     private String name;
 
     @NotBlank

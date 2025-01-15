@@ -50,7 +50,6 @@ public class AccountsController {
     public ResponseEntity<List<AccountResponse>> getAllAccounts() {
         
         List<Account> allAccounts = accountPublisher.publishEvent(new GetAllAccounts(this, ""));
-        
         List<AccountResponse> allAccountsDTO = allAccounts.stream()
             .map(account -> mapper.map(account, AccountResponse.class))
             .collect(Collectors.toList());
