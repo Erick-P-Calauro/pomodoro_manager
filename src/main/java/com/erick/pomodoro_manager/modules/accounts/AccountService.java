@@ -1,5 +1,7 @@
 package com.erick.pomodoro_manager.modules.accounts;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
@@ -17,8 +19,13 @@ public class AccountService {
 
     @EventListener
     public void getAccountById(GetAccount event) {
-        Account foundAccount = repository.findById(event.getUid()).get();
-        event.setResponse(foundAccount);
+        Optional<Account> foundAccount = repository.findById(event.getUid());
+        
+        if(foundAccount.isPresent()) {
+            event.setResponse(foundAccount.get());
+        }else {
+            event.setResponse(null);
+        }
     }
 
     @EventListener
