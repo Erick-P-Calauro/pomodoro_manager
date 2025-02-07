@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { addSeconds } from "date-fns";
+import { useContext, useEffect, useRef, useState } from "react";
 import * as constants from "../../types/timer-constants.ts";
 import { DESCANSO_CURTO, PRODUTIVIDADE } from "../../types/types.ts";
 import { SettingsContext } from "../contexts/useSettingsContext.tsx";
@@ -13,6 +12,7 @@ export const useTimerState = (key) : [Date, boolean, string, () => void] => {
     const [ timer, setTimerValue ] = useState(initialTimeDate);
     const [ isRunning, setIsRunning ] = useState(false); 
     const [ status, setStatus ] = useState(constants.EVEN);
+    const timerRef = useRef<number>(Date.now());
 
     // Bloco de mudança do valor de timer baseado no tema e nas configurações
     useEffect(() => {
@@ -24,32 +24,36 @@ export const useTimerState = (key) : [Date, boolean, string, () => void] => {
 
     }, [key, settings])
 
+    // Bloco de mudança no valor do timer baseado no isRunning
     useEffect(() => {
-        
-        // Bloco de mudança no valor do timer baseado no isRunning
-        const interval = setInterval(() => {
+        const timeout = setTimeout(() => {
+
             setTimerValue(t => {
 
+                // Novo Timer = Timer Antigo - (Tempo Atual - Tempo de Referência)
+                const novoTempo = t.getTime() - (Date.now() - timerRef.current);
+
                 // Parando a contagem no 00:00
-                if(t.getMinutes() === 0 && t.getSeconds() === 1) {
+                if(novoTempo === 0) {
                     setIsRunning(false)
                     setStatusByStepDone(key, setStatus);
                 }
 
-                return addSeconds(t, -1);
+                return new Date(novoTempo);
             })
 
-        }, 1000)
+        }, 900)
 
         if(!isRunning) {
-            clearInterval(interval)
+            clearTimeout(timeout);
         }
 
+        // Desmontagem => Muda o valor de referência para o timer
         return () => {
-            clearInterval(interval);
+            timerRef.current = Date.now();
         }
 
-    }, [isRunning, setStatus, key, settings])
+    }, [isRunning, timer, settings, key])
 
     // Requisitar permissão para notificações 
     // Depende do clique no botão "Iniciar" do Timer
@@ -57,7 +61,7 @@ export const useTimerState = (key) : [Date, boolean, string, () => void] => {
 
         if(isRunning === true && Notification.permission !== "granted") {
             Notification.requestPermission();
-        }
+        };
 
     }, [isRunning])
 
@@ -77,6 +81,8 @@ const defineInitialTimeDate = (key : string, settings : Settings) => {
     new Date(0,0,0,0, settings.timer.long);
 }
 
+// Falta ajeitar essa lógica
+// (Produtividade => Descanso Curto) * 4 => Descanso Longo => Produtividade
 const setStatusByStepDone = (key: string, setStatus: Function) => {
     key === PRODUTIVIDADE ? 
     setStatus(constants.DONE_PRODUCTIVITY) : key === DESCANSO_CURTO ?
