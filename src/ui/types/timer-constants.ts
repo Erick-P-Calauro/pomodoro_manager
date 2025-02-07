@@ -2,6 +2,7 @@
 // export const STALLED = "STALLED";
 // export const RUNNING = "RUNNING";
 export const EVEN = "EVEN";
-export const DONE_PRODUCTIVITY = "DONE_PRODUCTIVITY";
-export const DONE_SHORT = "DONE_SHORT";
-export const DONE_LONG = "DONE_LONG";
+export const TO_PRODUCTIVITY_SHORT = "TO_PRODUCTIVITY_SHORT";
+export const TO_PRODUCTIVITY_LONG = "TO_PRODUCTIVITY_LONG"
+export const TO_SHORT = "TO_SHORT";
+export const TO_LONG = "TO_LONG"

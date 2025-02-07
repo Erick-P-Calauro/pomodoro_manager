@@ -6,25 +6,26 @@ export const useTarefaStatus = (tarefas : Tarefa[], status : string) => {
     return (
         useEffect(() => {
         
-            if(status === constants.DONE_PRODUCTIVITY && tarefas.length !== 0) {    
+            if( (status === constants.TO_SHORT || status === constants.TO_LONG) && tarefas.length !== 0) {    
                 tarefas[0].productivityDone++;
             }
 
             if(Notification.permission === "granted") {
                 switch(status) {
-                    case constants.DONE_PRODUCTIVITY: {
+                    case constants.TO_SHORT:
+                    case constants.TO_LONG: {
                         new Notification("Sua sessão de produtividade acabou !", {
                             
                         });
                         break;
                     }
 
-                    case constants.DONE_SHORT: {
+                    case constants.TO_PRODUCTIVITY_SHORT: {
                         new Notification("Sua sessão de descanso curto acabou !");
                         break;
                     }
 
-                    case constants.DONE_LONG: {
+                    case constants.TO_PRODUCTIVITY_LONG: {
                         new Notification("Sua sessão de descanso longo acabou !");
                         break;
                     }

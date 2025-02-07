@@ -32,9 +32,10 @@ export const ThemeProvider = ({children}) => {
     const [ status, setStatus ] = useState(constants.EVEN);
 
     const defineNextTheme = (status: string) => {
-        return status === constants.DONE_PRODUCTIVITY ?
-        DESCANSO_CURTO : status === constants.DONE_SHORT ?
-        DESCANSO_LONGO : PRODUTIVIDADE;
+        return status === constants.TO_PRODUCTIVITY_SHORT ?
+        PRODUTIVIDADE : status === constants.TO_PRODUCTIVITY_LONG ?
+        PRODUTIVIDADE : status === constants.TO_SHORT ?
+        DESCANSO_CURTO : DESCANSO_LONGO;
     }
     
     useEffect(() => {

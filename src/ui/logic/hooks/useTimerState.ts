@@ -1,6 +1,6 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import * as constants from "../../types/timer-constants.ts";
-import { DESCANSO_CURTO, PRODUTIVIDADE } from "../../types/types.ts";
+import { DESCANSO_CURTO, DESCANSO_LONGO, PRODUTIVIDADE } from "../../types/types.ts";
 import { SettingsContext } from "../contexts/useSettingsContext.tsx";
 import { Settings } from "../../../data/types.ts";
 
@@ -12,6 +12,8 @@ export const useTimerState = (key) : [Date, boolean, string, () => void] => {
     const [ timer, setTimerValue ] = useState(initialTimeDate);
     const [ isRunning, setIsRunning ] = useState(false); 
     const [ status, setStatus ] = useState(constants.EVEN);
+    const [ productivityCounter, setProductivityCounter] = useState<number>(0);
+
     const timerRef = useRef<number>(Date.now());
 
     // Bloco de mudança do valor de timer baseado no tema e nas configurações
@@ -32,11 +34,13 @@ export const useTimerState = (key) : [Date, boolean, string, () => void] => {
 
                 // Novo Timer = Timer Antigo - (Tempo Atual - Tempo de Referência)
                 const novoTempo = t.getTime() - (Date.now() - timerRef.current);
+                const novaData = new Date(novoTempo);
 
                 // Parando a contagem no 00:00
-                if(novoTempo === 0) {
+                if(novaData.getMinutes() === 0 && novaData.getSeconds() === 0) {
+                    setStatusByStepDone(key, setStatus, productivityCounter, setProductivityCounter);
                     setIsRunning(false)
-                    setStatusByStepDone(key, setStatus);
+                    clearInterval(this);
                 }
 
                 return new Date(novoTempo);
@@ -53,7 +57,7 @@ export const useTimerState = (key) : [Date, boolean, string, () => void] => {
             timerRef.current = Date.now();
         }
 
-    }, [isRunning, timer, settings, key])
+    }, [isRunning, timer, settings, key, productivityCounter, setProductivityCounter])
 
     // Requisitar permissão para notificações 
     // Depende do clique no botão "Iniciar" do Timer
@@ -81,10 +85,21 @@ const defineInitialTimeDate = (key : string, settings : Settings) => {
     new Date(0,0,0,0, settings.timer.long);
 }
 
-// Falta ajeitar essa lógica
-// (Produtividade => Descanso Curto) * 4 => Descanso Longo => Produtividade
-const setStatusByStepDone = (key: string, setStatus: Function) => {
-    key === PRODUTIVIDADE ? 
-    setStatus(constants.DONE_PRODUCTIVITY) : key === DESCANSO_CURTO ?
-    setStatus(constants.DONE_SHORT) : setStatus(constants.DONE_LONG)
+const setStatusByStepDone = (key: string, setStatus: Function, productivityCounter, setProductivityCounter: Function) => {
+    if(key === PRODUTIVIDADE && productivityCounter === 6) {
+        setStatus(constants.TO_LONG)
+        setProductivityCounter(0);
+        
+    }else if(key === PRODUTIVIDADE && productivityCounter !== 6) {
+        setStatus(constants.TO_SHORT)
+        setProductivityCounter(p => {
+            return p+1;
+        })      
+
+    }else if(key === DESCANSO_LONGO){
+        setStatus(constants.TO_PRODUCTIVITY_LONG)
+
+    }else if(key === DESCANSO_CURTO) {
+        setStatus(constants.TO_PRODUCTIVITY_SHORT)
+    }
 }
