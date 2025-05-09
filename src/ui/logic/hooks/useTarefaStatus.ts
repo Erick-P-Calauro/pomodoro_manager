@@ -14,9 +14,7 @@ export const useTarefaStatus = (tarefas : Tarefa[], status : string) => {
                 switch(status) {
                     case constants.TO_SHORT:
                     case constants.TO_LONG: {
-                        new Notification("Sua sessão de produtividade acabou !", {
-                            
-                        });
+                        new Notification("Sua sessão de produtividade acabou !");
                         break;
                     }
 

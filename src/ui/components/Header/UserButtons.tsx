@@ -7,15 +7,19 @@ export const UserButtons = ({ openSettingsModal }) => {
     
     const { colors } = useContext(ThemeContext);
     
+    /**
+     * <HeaderButton style={{backgroundColor: colors.main}}>
+            <img src="/assets/insert_chart.svg" alt="report icon" />
+
+            <div className="items-center sm-mobile:hidden lg-mobile:flex">
+                <BodyExtraSmall text="Informações" style={{color: "var(--normal)"}} />
+            </div>
+        </HeaderButton>
+     */
+
     return (
         <div className="flex items-center gap-5">
-            <HeaderButton style={{backgroundColor: colors.main}}>
-                <img src="/assets/insert_chart.svg" alt="report icon" />
-
-                <div className="items-center sm-mobile:hidden lg-mobile:flex">
-                    <BodyExtraSmall text="Informações" style={{color: "var(--normal)"}} />
-                </div>
-            </HeaderButton>
+            
 
             <HeaderButton style={{backgroundColor: colors.main}} trigger={() => openSettingsModal(true)}>
                 <img src="/assets/settings.svg" alt="general settings icon" />
