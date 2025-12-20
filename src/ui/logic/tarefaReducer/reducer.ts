@@ -1,6 +1,6 @@
 import { Tarefa } from "../../../data/types.ts";
 
-export const TarefaReducer = (state : Tarefa[], action) => {
+export const TarefaReducer = (state : Tarefa[], action: { payload?: any; type?: any; }) => {
     const { type } = action;
 
     switch(type) {

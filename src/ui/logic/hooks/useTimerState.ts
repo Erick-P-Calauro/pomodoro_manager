@@ -4,7 +4,7 @@ import { DESCANSO_CURTO, DESCANSO_LONGO, PRODUTIVIDADE } from "../../types/types
 import { SettingsContext } from "../contexts/useSettingsContext.tsx";
 import { Settings } from "../../../data/types.ts";
 
-export const useTimerState = (key) : [Date, boolean, string, () => void] => {
+export const useTimerState = (key: any) : [Date, boolean, string, () => void] => {
 
     const { settings } = useContext(SettingsContext);
     const initialTimeDate = defineInitialTimeDate(key, settings);
@@ -85,14 +85,14 @@ const defineInitialTimeDate = (key : string, settings : Settings) => {
     new Date(0,0,0,0, settings.timer.long);
 }
 
-const setStatusByStepDone = (key: string, setStatus: Function, productivityCounter, setProductivityCounter: Function) => {
+const setStatusByStepDone = (key: string, setStatus: Function, productivityCounter : number, setProductivityCounter: Function) => {
     if(key === PRODUTIVIDADE && productivityCounter === 6) {
         setStatus(constants.TO_LONG)
         setProductivityCounter(0);
         
     }else if(key === PRODUTIVIDADE && productivityCounter !== 6) {
         setStatus(constants.TO_SHORT)
-        setProductivityCounter(p => {
+        setProductivityCounter((p: number) => {
             return p+1;
         })      
 

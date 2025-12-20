@@ -15,7 +15,7 @@ export type TarefaFormData = {
     productivityDone: number,
 }
 
-export const FormTarefa = ({ formTarget, setFormTarget}) => {
+export const FormTarefa = ({ formTarget, setFormTarget} : any) => {
     const { register, handleSubmit, setValue, watch } = useForm<TarefaFormData>({
         defaultValues: {
             id: -1,

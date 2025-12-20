@@ -1,7 +1,6 @@
 import { useFormContext } from "react-hook-form"
 import { BodyMedium } from "../Typography/BodyMedium.tsx"
 import { HeadlineSmall } from "../Typography/HeadlineSmall.tsx"
-import React from "react"
 
 export const SettingsTimerSection = () => {
     const { register } = useFormContext();

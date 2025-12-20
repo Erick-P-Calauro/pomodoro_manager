@@ -25,7 +25,7 @@ const SettingsState: SettingsStateType = {
 }
 export const SettingsContext = React.createContext(SettingsState);
 
-export const SettingsProvider = ({children, value}) => {
+export const SettingsProvider = ({children, value} : any) => {
     return (
         <SettingsContext.Provider value={value}>
             {children}

@@ -27,7 +27,7 @@ export const ThemeContextState: ThemeContextType = {
 
 export const ThemeContext = React.createContext(ThemeContextState)
 
-export const ThemeProvider = ({children}) => {
+export const ThemeProvider = ({children} : any) => {
     const [ themeState, setThemeState ] = useThemeState()
     const [ status, setStatus ] = useState(constants.EVEN);
 

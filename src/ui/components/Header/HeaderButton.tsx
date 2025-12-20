@@ -1,6 +1,4 @@
-import React from "react"
-
-export const HeaderButton = ({children, style = {}, trigger = () => {}}) => {
+export const HeaderButton = ({children, style = {}, trigger = () => {}} : any) => {
     return (
         <button className="
             flex items-center justify-center gap-2 rounded-sm p-2

@@ -1,6 +1,6 @@
 import React from "react";
 
-export const Modal = ({ children }) => {
+export const Modal = ({ children } : any) => {
     return (
         <div className="bg-transparent w-[100vw] h-[100vh] z-[1000] fixed backdrop-blur-sm top-0 left-0 flex justify-center ">
             <div className={`

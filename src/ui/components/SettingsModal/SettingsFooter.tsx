@@ -1,5 +1,4 @@
 import { BodySmall } from "../Typography/BodySmall.tsx"
-import React from "react"
 
 export const SettingsFooter = () => {
     return (

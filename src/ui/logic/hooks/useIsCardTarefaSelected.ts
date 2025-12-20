@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-export const useIsCardTarefaSelected = (id, changeSelected, receivedIsSelected) : [boolean, Dispatch<SetStateAction<boolean>>] => {
+export const useIsCardTarefaSelected = (id : string, changeSelected : any, receivedIsSelected : any) : [boolean, Dispatch<SetStateAction<boolean>>] => {
     const [isSelected, setIsSelected] = useState(false);
     
     useEffect(() => {

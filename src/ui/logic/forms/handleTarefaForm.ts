@@ -9,12 +9,11 @@ export const handleTarefaForm = ({
 
 }:{
     data : TarefaFormData,
-    setDisplayState: React.Dispatch<React.SetStateAction<Number>>,
+    setDisplayState: any,
     dispatchTarefas: React.Dispatch<React.SetStateAction<Tarefa[]>>,
     
 })  => {
-    console.log(data);
-
+    
     const newTarefa: Tarefa = {
         id: data.id, // O id vai ser alterado no reducer
         title: data.title,
