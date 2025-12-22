@@ -1,4 +1,5 @@
 import { UserApi } from "../Api/UserApi.ts"
+import { UserResponse } from "../dto.ts";
 
 export const UserRepository = {
 
@@ -14,6 +15,17 @@ export const UserRepository = {
         localStorage.setItem("AUTH_TOKEN", result.data);
 
         return true;
+    },
+
+    identificarUsuario: async (): Promise<UserResponse | undefined> => {
+        const result = await UserApi.findUserByToken();
+
+        if(!result.ok) {
+            console.error("[IDENTIFICAR USUÁRIO] Error: " + result.error!);
+            return undefined;
+        }
+
+        return result.data!;
     }
 
 }

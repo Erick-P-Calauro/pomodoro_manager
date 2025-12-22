@@ -30,6 +30,41 @@ export const UserApi = {
                 ok: true,
                 data: token
             }
+
+        }catch(e) {
+            return {
+                ok: false,
+                error: e instanceof Error ? e.message : "Erro interno do servidor."
+            }
+        }
+    },
+
+    findUserByToken: async () => {
+        try {
+            const token = localStorage.getItem("AUTH_TOKEN");
+            const response = await fetch(`${API_BASE}/user/`, {
+                method: "GET",
+                headers: {
+                    "Authorization" : "Bearer " + token,
+                    "Content-Type" : "application/json"
+                },
+            })
+
+            if(!response.ok) {
+                const { error } = await response.json();
+
+                return {
+                    ok: false,
+                    error: error
+                }
+            }
+
+
+            return {
+                ok: true,
+                data: await response.json()
+            }
+
         }catch(e) {
             return {
                 ok: false,

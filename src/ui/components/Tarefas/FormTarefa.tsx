@@ -1,24 +1,14 @@
-import React, { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { BodyExtraSmall } from "../Typography/BodyExtraSmall.tsx";
 import { BodyMedium } from "../Typography/BodyMedium.tsx";
-import { TarefaContext } from "../../logic/contexts/useTarefaContext.tsx";
+import { TarefaContext } from "./TarefaContext.tsx";
 import { useForm } from "react-hook-form";
-import { apagarTarefa } from "../../logic/tarefaReducer/actions.ts";
-import { useHandleTarefaEdit } from "../../logic/hooks/useHandleTarefaEdit.ts";
-import { handleTarefaForm } from "../../logic/forms/handleTarefaForm.ts";
+import { TarefaCreate } from "../../../data/dto.ts";
 
-export type TarefaFormData = {
-    id: number,
-    title: string,
-    description: string,
-    productivityGoal: number,
-    productivityDone: number,
-}
-
-export const FormTarefa = ({ formTarget, setFormTarget} : any) => {
-    const { register, handleSubmit, setValue, watch } = useForm<TarefaFormData>({
+export const FormTarefa = ({ formTarget, setFormTarget, changeFormVisibility} : any) => {
+    const { register, handleSubmit, setValue, watch } = useForm<TarefaCreate>({
         defaultValues: {
-            id: -1,
+            id: "-1",
             title: "",
             description: "",
             productivityGoal: 0,
@@ -26,19 +16,35 @@ export const FormTarefa = ({ formTarget, setFormTarget} : any) => {
         }
     });
 
-    useHandleTarefaEdit({formTarget, setFormTarget, setValue})
-
-    const [ formDisplayState, setFormDisplayState ] = useState(0);
+    // Manipula os campos do formulário para edição de tarefas
+    useEffect(() => {
     
+        if(formTarget !== undefined) {
+            const { id, title, description, productivityDone, productivityGoal} = formTarget;
+    
+            setValue("id", id)
+            setValue("title", title)
+            setValue("description", description)
+            setValue("productivityGoal", productivityGoal);
+            setValue("productivityDone", productivityDone)
+
+            // Serve para limpar os campos do formulário
+            setFormTarget(undefined);
+        }
+
+    }, [formTarget, setValue, setFormTarget])
+    
+    const [ formDisplayState, setFormDisplayState ] = useState(0); // 0 - Sem descrição & 1 - Com descrição
+    // const [ formAction, setFormAction] = useState(0); // 0 - Adicionar & 1 - Editar
+    const { cadastrar, apagar }= useContext(TarefaContext)!;
+
     const counter = watch("productivityGoal");
     const tarefaId = watch("id");
 
-    const { changeDisplay, dispatchTarefas} = useContext(TarefaContext);
-
     return (
-        <form onSubmit={handleSubmit(data => handleTarefaForm({data, setDisplayState: changeDisplay, dispatchTarefas}))}>
+        <form onSubmit={handleSubmit(data => cadastrar(data))}>
             
-            <input {...register("id")} style={{display: "none"}} />
+            <input type="text" {...register("id")} style={{display: "none"}} />
             <input {...register("productivityDone")} style={{display: "none"}} />
             
             <div className="bg-normal w-full h-fit rounded-[4px] pt-6">
@@ -101,12 +107,8 @@ export const FormTarefa = ({ formTarget, setFormTarget} : any) => {
                 
                 <div className="bg-detalhes py-4 px-4 flex items-center justify-between mt-7 rounded-b-[4px] gap-4">
                     
-                    {tarefaId !== -1 ? (
-                        <button type="button" onClick={() => {
-                            apagarTarefa(dispatchTarefas, tarefaId);
-                            changeDisplay(0);
-
-                        }} className="bg-detalhes shadow-mdBoxhadow px-3 py-1.5 rounded-sm text-center">
+                    {tarefaId !== "-1" ? (
+                        <button type="button" onClick={() => apagar(tarefaId)} className="bg-detalhes shadow-mdBoxhadow px-3 py-1.5 rounded-sm text-center">
                             <img src="/assets/delete.svg" alt="delete icon"/> 
                         </button>)  
                         : 
@@ -114,7 +116,7 @@ export const FormTarefa = ({ formTarget, setFormTarget} : any) => {
                     }
 
                     <div className="flex items-center gap-3 lg-mobile:gap-4">
-                        <button type="button" onClick={() => changeDisplay(0)} className="py-1">
+                        <button type="button" onClick={() => changeFormVisibility()} className="py-1">
                             <BodyExtraSmall text="Cancelar" style={{color: "var(--normal)"}} />
                         </button>
 

@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import * as constants from "../../types/timer-constants.ts";
 import { DESCANSO_CURTO, DESCANSO_LONGO, PRODUTIVIDADE } from "../../types/types.ts";
 import { SettingsContext } from "../contexts/useSettingsContext.tsx";
-import { Settings } from "../../../data/types.ts";
+import { Settings } from "../../../data/dto.ts";
 
 export const useTimerState = (key: any) : [Date, boolean, string, () => void] => {
 
