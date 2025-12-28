@@ -1,4 +1,4 @@
-import { useContext, useEffect,useReducer,useState } from "react"
+import { useContext, useEffect,useState } from "react"
 import { FormTarefa } from "./FormTarefa.tsx"
 import { ThemeContext } from "../../logic/contexts/useThemeContext.tsx"
 import { Tarefa } from "../../../data/dto.ts"
@@ -15,36 +15,32 @@ export const Tarefas = () => {
     const { isAuth } = useContext(AuthContext);
     const { colors, status } = useContext(ThemeContext);
     
-    const [needReload, setNeedReload] = useState(false);
     const [isFormVisible, setIsFormVisible] = useState(false) // Estado de visibilidade de Tarefas (Botão de adicionar ou Formulário
     const [tarefas, setTarefas] = useState<Tarefa[]>([]);// CRUD de Tarefas
     const [formTarget, setTarget] = useState<Tarefa>() // Tarefa para edição
 
+    const sincronizarTarefas = async () => {
+        TaskRepository.listarTarefasPorUsuario().then((tarefas) => setTarefas(tarefas));
+    }
+
     const tarefaContext : TarefaStateType = {
-        tarefas: tarefas,
-        cadastrar: async (tarefa) => {
-            await TaskRepository.criarTarefa(tarefa);
-            setIsFormVisible((v) => !v);
-            setNeedReload((t) => !t);
+        ativarFormulario : () => setIsFormVisible(true),
+        desativarFormulario: () => {
+            setTarget(undefined);
+            setIsFormVisible(false);
         },
-        editar: async (tarefa) => {
-            await TaskRepository.editarTarefa(tarefa);
-            setIsFormVisible((v) => !v);
-            setNeedReload((t) => !t);
+        sincronizarTarefas : () => sincronizarTarefas(),
+        selecionarTarefa: (tarefa : Tarefa | undefined)  => {
+            setTarget(tarefa);
+            setIsFormVisible(true);
         },
-        apagar: async (id) =>  {
-            await TaskRepository.deletarTarefa(id);
-            setIsFormVisible((v) => !v);
-            setNeedReload((t) => !t);
-        },
-        selecionar: (tarefa) => setTarget(tarefa),
     };
     
     // Refresh e Load das tarefas
     useEffect(() => {
-        isAuth ? TaskRepository.listarTarefasPorUsuario().then((tarefas) => { setTarefas(tarefas)}) : setTarefas([])
-
-    }, [needReload, isAuth])
+        isAuth ? sincronizarTarefas() : setTarefas([]);
+         
+    }, [isAuth])
 
     // Manipulação do estado a partir das sessões de produtividade
     useEffect(() => {
@@ -71,16 +67,7 @@ export const Tarefas = () => {
             }
         }
 
-    }, [status, tarefas])
-
-    // Manipulação do formulário para caso haja edição
-    useEffect(() => {
-        
-        if(formTarget !== undefined) {
-            setIsFormVisible(true);
-        }
-
-    }, [formTarget])
+    }, [status])
 
     return (
         <TarefaContext.Provider value={tarefaContext}>
@@ -114,11 +101,7 @@ export const Tarefas = () => {
                         </button>
                     </div> 
                     : 
-                    <FormTarefa 
-                        formTarget={formTarget} 
-                        setFormTarget={setTarget} 
-                        changeFormVisibility={() => setIsFormVisible((visibility) => !visibility)}
-                    />
+                    <FormTarefa tarefaSelecionada={formTarget} />
                 }
             </div>
         </TarefaContext.Provider>

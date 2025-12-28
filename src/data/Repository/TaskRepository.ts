@@ -15,6 +15,17 @@ export const TaskRepository = {
         return true;
     },
 
+    editarTarefa: async (tarefa: TarefaCreate) : Promise<boolean> => {
+        const result = await TaskApi.updateTask(tarefa);
+
+        if(!result.ok) {
+            console.error("[EDITAR TAREFA] Error: " + result.error!);
+            return false;
+        }
+
+        return true;
+    },
+
     deletarTarefa : async (id: string) : Promise<boolean> => {
 
         const result = await TaskApi.deleteTask(id);
