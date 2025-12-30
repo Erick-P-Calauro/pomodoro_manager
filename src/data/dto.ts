@@ -1,6 +1,6 @@
 // Model
 export type Tarefa = {
-    id: number,
+    id: string,
     title: string,
     description: string,
     active: boolean,

@@ -9,10 +9,12 @@ import { CardTarefa } from "./CardTarefa.tsx"
 import { BodyMedium } from "../Typography/BodyMedium.tsx"
 import { TaskRepository } from "../../../data/Repository/TaskRepository.ts";
 import { AuthContext } from "../../logic/contexts/useAuthContext.tsx";
+import { SettingsContext } from "../../logic/contexts/useSettingsContext.tsx";
 
 export const Tarefas = () => {
 
     const { isAuth } = useContext(AuthContext);
+    const { settings } = useContext(SettingsContext);
     const { colors, status } = useContext(ThemeContext);
     
     const [isFormVisible, setIsFormVisible] = useState(false) // Estado de visibilidade de Tarefas (Botão de adicionar ou Formulário
@@ -44,16 +46,24 @@ export const Tarefas = () => {
 
     // Manipulação do estado a partir das sessões de produtividade
     useEffect(() => {
-        
-        if( (status === constants.TO_SHORT || status === constants.TO_LONG) && tarefas.length !== 0) {    
-            tarefas[0].productivityDone++;
-        }
 
         if(Notification.permission === "granted") {
             switch(status) {
                 case constants.TO_SHORT:
                 case constants.TO_LONG: {
+
                     new Notification("Sua sessão de produtividade acabou !");
+
+                    if(tarefas.length > 0) {
+                        for(let tarefa of tarefas) {
+                            if(tarefa.productivityDone < tarefa.productivityGoal) {
+                                console.log(settings.timer.productivity)
+                                TaskRepository.adicionarProdutividade(tarefas[0].id, settings.timer.productivity).then(() => sincronizarTarefas())
+                                break;
+                            }
+                        }
+                    }
+
                     break;
                 }
                 case constants.TO_PRODUCTIVITY_SHORT: {

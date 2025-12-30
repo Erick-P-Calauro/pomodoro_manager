@@ -152,5 +152,47 @@ export const TaskApi = {
             }
         }
 
+    },
+
+    addTaskProductivity : async (id: string, minutes: number) : Promise<
+        {
+            ok: boolean,
+            data: null,
+            error?: undefined
+        } | GenericApiError
+    > => {
+
+        try {
+
+            const token = localStorage.getItem("AUTH_TOKEN");
+            const response = await fetch(`${API_BASE}/task/productivity/${id}?taskTime=${minutes}`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+            });
+
+            if(!response.ok) {
+                const { error } = await response.json();
+
+                return {
+                    ok: false,
+                    error: error
+                }
+            }
+
+            return {
+                ok: true,
+                data: null
+            }
+
+        }catch(e) {
+            return {
+                ok: false,
+                error: e instanceof Error ? e.message : "Erro interno do servidor."
+            }
+        }
+
     }
 }

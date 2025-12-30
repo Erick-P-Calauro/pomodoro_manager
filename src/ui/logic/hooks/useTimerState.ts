@@ -4,7 +4,7 @@ import { DESCANSO_CURTO, DESCANSO_LONGO, PRODUTIVIDADE } from "../../types/types
 import { SettingsContext } from "../contexts/useSettingsContext.tsx";
 import { Settings } from "../../../data/dto.ts";
 
-export const useTimerState = (key: any) : [Date, boolean, string, () => void] => {
+export const useTimerState = (key: any, shouldSkip: boolean, setShouldSkip: any) : [Date, boolean, string, () => void] => {
 
     const { settings } = useContext(SettingsContext);
     const initialTimeDate = defineInitialTimeDate(key, settings);
@@ -12,6 +12,7 @@ export const useTimerState = (key: any) : [Date, boolean, string, () => void] =>
     const [ timer, setTimerValue ] = useState(initialTimeDate);
     const [ isRunning, setIsRunning ] = useState(false); 
     const [ status, setStatus ] = useState(constants.EVEN);
+    
     const [ productivityCounter, setProductivityCounter] = useState<number>(0);
 
     const timerRef = useRef<number>(Date.now());
@@ -28,6 +29,13 @@ export const useTimerState = (key: any) : [Date, boolean, string, () => void] =>
 
     // Bloco de mudança no valor do timer baseado no isRunning
     useEffect(() => {
+
+        if(shouldSkip) {
+            setIsRunning(false);
+            setShouldSkip(false);
+            setStatusByStepDone(key, setStatus, productivityCounter, setProductivityCounter);
+        }
+        
         const timeout = setTimeout(() => {
 
             setTimerValue(t => {
@@ -57,7 +65,7 @@ export const useTimerState = (key: any) : [Date, boolean, string, () => void] =>
             timerRef.current = Date.now();
         }
 
-    }, [isRunning, timer, settings, key, productivityCounter, setProductivityCounter])
+    }, [isRunning, timer, settings, key, productivityCounter, shouldSkip])
 
     // Requisitar permissão para notificações 
     // Depende do clique no botão "Iniciar" do Timer
@@ -85,7 +93,7 @@ const defineInitialTimeDate = (key : string, settings : Settings) => {
     new Date(0,0,0,0, settings.timer.long);
 }
 
-const setStatusByStepDone = (key: string, setStatus: Function, productivityCounter : number, setProductivityCounter: Function) => {
+export const setStatusByStepDone = (key: string, setStatus: Function, productivityCounter : number, setProductivityCounter: Function) => {
     if(key === PRODUTIVIDADE && productivityCounter === 6) {
         setStatus(constants.TO_LONG)
         setProductivityCounter(0);

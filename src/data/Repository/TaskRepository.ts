@@ -56,5 +56,16 @@ export const TaskRepository = {
         }
 
         return result.data!;
+    },
+
+    adicionarProdutividade: async (id: string, minutes: number) : Promise<boolean> => {
+        const result = await TaskApi.addTaskProductivity(id, minutes);
+
+        if(!result.ok) {
+            console.error("[ADICIONAR PRODUTIVIDADE] Error: " + result.error!);
+            return false;
+        }
+
+        return true;
     }
 }
