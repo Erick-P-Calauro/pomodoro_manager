@@ -1,6 +1,43 @@
 import { API_BASE } from "../env"
 
 export const UserApi = {
+
+    save: async (username : string, password : string) => {
+        try {
+            const response = await fetch(`${API_BASE}/user/save`, {
+                method: "POST",
+                headers: {
+                    // "Access-Conrol-Allow-Origin": "*",
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            })
+
+            if(!response.ok) {
+                const { error } = await response.json();
+
+                return {
+                    ok: false,
+                    error: error
+                }
+            }
+
+            return {
+                ok: true,
+                data: null
+            }
+
+        }catch(e) {
+            return {
+                ok: false,
+                error: e instanceof Error ? e.message : "Erro interno do servidor."
+            }
+        }
+    },
+
     login: async (username : string, password : string) => {
         try {
             const response = await fetch(`${API_BASE}/user/login`, {

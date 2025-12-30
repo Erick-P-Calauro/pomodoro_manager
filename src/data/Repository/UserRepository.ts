@@ -3,6 +3,17 @@ import { UserResponse } from "../dto.ts";
 
 export const UserRepository = {
 
+    criarUsuario : async (username: string, password: string) : Promise<boolean> => {
+        const result = await UserApi.save(username,password);
+
+        if(!result.ok) {
+            console.error("[CRIAR USUÁRIO] Error: " + result.error!);
+            return false;
+        }
+
+        return true;
+    },
+
     efetuarLogin : async (username: string, password: string) : Promise<number> => {
 
         const result = await UserApi.login(username, password);
