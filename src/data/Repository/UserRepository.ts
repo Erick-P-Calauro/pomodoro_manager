@@ -3,18 +3,18 @@ import { UserResponse } from "../dto.ts";
 
 export const UserRepository = {
 
-    efetuarLogin : async (username: string, password: string) : Promise<boolean> => {
+    efetuarLogin : async (username: string, password: string) : Promise<number> => {
 
         const result = await UserApi.login(username, password);
 
         if(!result.ok) {
             console.error("[EFETUAR LOGIN] Error: " + result.error!);
-            return false;
+            return 0;
         }
 
-        localStorage.setItem("AUTH_TOKEN", result.data);
+        localStorage.setItem("AUTH_TOKEN", result.data!.token);
 
-        return true;
+        return result.data!.expiresIn;
     },
 
     identificarUsuario: async (): Promise<UserResponse | undefined> => {

@@ -24,11 +24,14 @@ export const UserApi = {
                 }
             }
 
-            const { token } = await response.json();
+            const { token, expiresIn } = await response.json();
 
             return {
                 ok: true,
-                data: token
+                data: {
+                    token: token,
+                    expiresIn: expiresIn
+                }
             }
 
         }catch(e) {

@@ -4,16 +4,16 @@ import { HeadlineLarge } from "../Typography/HeadlineLarge.tsx";
 import { HeaderButton } from "./HeaderButton.tsx";
 import { ThemeContext } from "../../logic/contexts/useThemeContext.tsx";
 import { AuthContext } from "../../logic/contexts/useAuthContext.tsx";
+import { Link } from "react-router";
 
+function Header({ openSettingsModal } : any) {
 
-function Header({openLoginModal, openSettingsModal} : any) {
-
-    const { isAuth, setIsAuth} = useContext(AuthContext);
+    const { isAuthenticated, setIsAuthenticated} = useContext(AuthContext);
     const { colors } = useContext(ThemeContext);
 
     const handleUnathenticate = () => {
         localStorage.setItem("AUTH_TOKEN", "-1");
-        setIsAuth(false);
+        setIsAuthenticated(false);
     }
 
     return (
@@ -29,14 +29,16 @@ function Header({openLoginModal, openSettingsModal} : any) {
            <div className="flex items-center gap-5">
 
                 {
-                    !isAuth ? (
-                        <HeaderButton style={{backgroundColor: colors.main}} trigger={() => openLoginModal(true)}>
-                            <img className="max-w-6" src="/assets/generic-avatar.png" alt="login icon" />
+                    !isAuthenticated ? (
+                        <Link to={"/login"}>
+                            <HeaderButton style={{backgroundColor: colors.main}}>
+                                <img className="max-w-6" src="/assets/generic-avatar.png" alt="login icon" />
 
-                            <div className="items-center sm-mobile:hidden lg-mobile:flex">
-                                <BodyExtraSmall text="Entrar" style={{color: ("var(--normal)")}} />
-                            </div>
-                        </HeaderButton>
+                                <div className="items-center sm-mobile:hidden lg-mobile:flex">
+                                    <BodyExtraSmall text="Entrar" style={{color: ("var(--normal)")}} />
+                                </div>
+                            </HeaderButton>
+                        </Link>
                     ) 
                     : 
                     (

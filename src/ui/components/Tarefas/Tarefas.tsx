@@ -13,7 +13,7 @@ import { SettingsContext } from "../../logic/contexts/useSettingsContext.tsx";
 
 export const Tarefas = () => {
 
-    const { isAuth } = useContext(AuthContext);
+    const { isAuthenticated } = useContext(AuthContext);
     const { settings } = useContext(SettingsContext);
     const { colors, status } = useContext(ThemeContext);
     
@@ -40,9 +40,9 @@ export const Tarefas = () => {
     
     // Refresh e Load das tarefas
     useEffect(() => {
-        isAuth ? sincronizarTarefas() : setTarefas([]);
+        isAuthenticated ? sincronizarTarefas() : setTarefas([]);
          
-    }, [isAuth])
+    }, [isAuthenticated])
 
     // Manipulação do estado a partir das sessões de produtividade
     useEffect(() => {
