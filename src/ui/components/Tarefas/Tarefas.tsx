@@ -1,15 +1,17 @@
-import { useContext, useEffect,useState } from "react"
+import { useContext, useEffect ,useReducer,useState } from "react"
 import { FormTarefa } from "./FormTarefa.tsx"
 import { ThemeContext } from "../../logic/contexts/useThemeContext.tsx"
 import { Tarefa } from "../../../data/dto.ts"
 import * as constants from "../../types/timer-constants.ts";
-import { TarefaContext, TarefaStateType } from "./TarefaContext.tsx"
+import { TarefaContext, TarefaStateType } from "./Logic/TarefaContext.tsx"
 import { HeadlineMedium } from "../Typography/HeadlineMedium.tsx"
 import { CardTarefa } from "./CardTarefa.tsx"
 import { BodyMedium } from "../Typography/BodyMedium.tsx"
 import { TaskRepository } from "../../../data/Repository/TaskRepository.ts";
 import { AuthContext } from "../../logic/contexts/useAuthContext.tsx";
 import { SettingsContext } from "../../logic/contexts/useSettingsContext.tsx";
+import { TarefaReducer } from "./Logic/TarefaReducer.ts";
+import { TarefaActions } from "./Logic/TarefaActions.ts";
 
 export const Tarefas = () => {
 
@@ -18,11 +20,11 @@ export const Tarefas = () => {
     const { colors, status } = useContext(ThemeContext);
     
     const [isFormVisible, setIsFormVisible] = useState(false) // Estado de visibilidade de Tarefas (Botão de adicionar ou Formulário
-    const [tarefas, setTarefas] = useState<Tarefa[]>([]);// CRUD de Tarefas
+    const [tarefas, dispatchTarefas] = useReducer(TarefaReducer, []);// CRUD de Tarefas
     const [formTarget, setTarget] = useState<Tarefa>() // Tarefa para edição
 
     const sincronizarTarefas = async () => {
-        TaskRepository.listarTarefasPorUsuario().then((tarefas) => setTarefas(tarefas));
+        TaskRepository.listarTarefasPorUsuario().then((tarefas) => dispatchTarefas(TarefaActions.LOAD_TAREFA(tarefas)));
     }
 
     const tarefaContext : TarefaStateType = {
@@ -36,11 +38,15 @@ export const Tarefas = () => {
             setTarget(tarefa);
             setIsFormVisible(true);
         },
+        // Consultar Tarefas/Logic/TarefaActions.ts
+        dispatchTarefas : (value: {type: string, payload: any}) => dispatchTarefas(value)
     };
     
     // Refresh e Load das tarefas
     useEffect(() => {
-        isAuthenticated ? sincronizarTarefas() : setTarefas([]);
+        if(isAuthenticated) {
+            sincronizarTarefas();
+        }
          
     }, [isAuthenticated])
 
@@ -49,6 +55,10 @@ export const Tarefas = () => {
 
         if(Notification.permission === "granted") {
             switch(status) {
+
+                // Lógica de contagem de produtividade
+                // Se estiver autenticado manda pro backend
+                // Se não estiver faz o cálculo local e efêmero
                 case constants.TO_SHORT:
                 case constants.TO_LONG: {
 
@@ -57,8 +67,13 @@ export const Tarefas = () => {
                     if(tarefas.length > 0) {
                         for(let tarefa of tarefas) {
                             if(tarefa.productivityDone < tarefa.productivityGoal) {
-                                console.log(settings.timer.productivity)
-                                TaskRepository.adicionarProdutividade(tarefas[0].id, settings.timer.productivity).then(() => sincronizarTarefas())
+                                if(isAuthenticated) {
+                                    TaskRepository.adicionarProdutividade(tarefas[0].id, settings.timer.productivity).then(() => sincronizarTarefas())
+                                    break;
+                                }
+
+                                tarefa.productivityDone = tarefa.productivityDone + 1;
+                                dispatchTarefas(TarefaActions.EDIT_TAREFA(tarefa, tarefa.id));
                                 break;
                             }
                         }
@@ -94,7 +109,7 @@ export const Tarefas = () => {
                 
                 {
                     // Tarefa Card List
-                    tarefas.map((tarefa) => {
+                    tarefas.map((tarefa : Tarefa) => {
                         return <CardTarefa 
                                 key={tarefa.id}
                                 tarefa={tarefa}/>

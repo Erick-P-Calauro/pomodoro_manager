@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { HeadlineSmall } from "../Typography/HeadlineSmall.tsx";
-import { TarefaContext } from "./TarefaContext.tsx";
+import { TarefaContext } from "./Logic/TarefaContext.tsx";
 import { Tarefa } from "../../../data/dto.ts";
 
 export const CardTarefa = ({ tarefa } : { tarefa: Tarefa }) => {

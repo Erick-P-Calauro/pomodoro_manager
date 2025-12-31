@@ -1,16 +1,21 @@
 import { useContext, useEffect, useState } from "react"
 import { BodyExtraSmall } from "../Typography/BodyExtraSmall.tsx";
 import { BodyMedium } from "../Typography/BodyMedium.tsx";
-import { TarefaContext } from "./TarefaContext.tsx";
+import { TarefaContext } from "./Logic/TarefaContext.tsx";
 import { useForm } from "react-hook-form";
 import { TarefaCreate } from "../../../data/dto.ts";
 import { TaskRepository } from "../../../data/Repository/TaskRepository.ts";
+import { AuthContext } from "../../logic/contexts/useAuthContext.tsx";
+import { TarefaActions } from "./Logic/TarefaActions.ts";
 
 export const FormTarefa = ({ tarefaSelecionada } : any) => {
     const [ formDisplayState, setFormDisplayState ] = useState(0); // 0 - Sem descrição & 1 - Com descrição 
     const [ formAction, setFormAction ] = useState(0) // 0 - Cadastrar & 1 - Editar
+
+    const { dispatchTarefas, desativarFormulario, sincronizarTarefas } = useContext(TarefaContext)!
+    const { isAuthenticated } = useContext(AuthContext);
     
-    const { register, handleSubmit, setValue, watch, reset } = useForm<TarefaCreate>({
+    const { register, handleSubmit, setValue, watch } = useForm<TarefaCreate>({
         defaultValues: {
             id: "-1",
             title: "",
@@ -19,8 +24,6 @@ export const FormTarefa = ({ tarefaSelecionada } : any) => {
             productivityDone: 0
         }
     });
-
-    const { desativarFormulario, sincronizarTarefas } = useContext(TarefaContext)!
 
     // Altera o estado do formulário de acordo com a tarefa selecionada
     useEffect(() => {
@@ -43,22 +46,42 @@ export const FormTarefa = ({ tarefaSelecionada } : any) => {
 
     }, [tarefaSelecionada])
 
-    const cadastrarTarefa = async (tarefa : TarefaCreate) => {
-        await TaskRepository.criarTarefa(tarefa);
-        sincronizarTarefas();
+    const cadastrarTarefa = async (tarefaCreate : TarefaCreate) => {
+        if(isAuthenticated) {
+            await TaskRepository.criarTarefa(tarefaCreate);
+            sincronizarTarefas();
+        }else {
+            const tarefa = {...tarefaCreate, active: true}
+            dispatchTarefas(TarefaActions.ADD_TAREFA(tarefa));
+        }
+
         desativarFormulario();
+        return;
     }
 
-    const editarTarefa = async (tarefa: TarefaCreate) => {
-        await TaskRepository.editarTarefa(tarefa);
-        sincronizarTarefas();
+    const editarTarefa = async (tarefaCreate: TarefaCreate) => {
+        if(isAuthenticated) {
+            await TaskRepository.editarTarefa(tarefaCreate);
+            sincronizarTarefas();
+        }else {
+            const tarefa = {...tarefaCreate, active: true}
+            dispatchTarefas(TarefaActions.EDIT_TAREFA(tarefa, tarefa.id))
+        }
+
         desativarFormulario();
+        return;
     }
     
     const apagarTarefa = async (id: string) =>  {
-        await TaskRepository.deletarTarefa(id);
-        sincronizarTarefas()
+        if(isAuthenticated) {
+            await TaskRepository.deletarTarefa(id);
+            sincronizarTarefas()        
+        }else {
+            dispatchTarefas(TarefaActions.DELETE_TAREFA(id));
+        }
+
         desativarFormulario();
+        return;
     }
 
     const counter = watch("productivityGoal");
